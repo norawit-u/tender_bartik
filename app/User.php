@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +38,4 @@ class User extends Authenticatable
      *
      * @var string
      */
-    protected $dateFormat = 'U';
-    const CREATED_AT = 'creation_date';
-    const UPDATED_AT = 'last_update';
 }
