@@ -34,7 +34,7 @@ jobs:
               - ./vendor
             key: v1-dependencies-{{ checksum "composer.json" }}
         - run: touch storage/testing.sqlite
-        - run: php artisan migrate --env=testing --database=sqlite_testing --force
+        - run: php artisan migrate --env=testing --database=sqlite --force
         - run: ./vendor/bin/codecept build
         - run: ./vendor/bin/codecept run
 deployment:
