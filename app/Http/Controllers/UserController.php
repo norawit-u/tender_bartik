@@ -5,16 +5,31 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
+    /**
+     * The user repository instance.
+     */
+    protected $users;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  UserRepository  $users
+     * @return void
+     */
+//    public function __construct(User $users)
+//
+//        $this->users = $users;
+//    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return User[]|\Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -46,7 +61,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return User::findOrFail($user);
     }
 
     /**
