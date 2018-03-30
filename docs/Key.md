@@ -19,5 +19,5 @@ DB_PASSWORD=ergweprjgwerighjwethjtr2315
 
 | name | key |
 |:-:|:-:|
-| Client ID Secret 1 | lH9Pw3KAdBqRXJYL0END5T5isAbsVHo9LIZwFTZH |
-| Client ID Secret 2 | LQPSNW4ygWp0yancJgQuVMaMpTzT4ZcWW1QDxb0W |
+| Client ID Secret 1 | qTCINX9EKxPmcp9DPUR8cRm2ykqASk67gdkVWEQJ |
+| Client ID Secret 2 | utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl |
