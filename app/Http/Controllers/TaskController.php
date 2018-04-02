@@ -44,7 +44,6 @@ class TaskController extends Controller
             'assignee'   => 'required',
             'assigner'   => 'required',
             'description'   => 'nullable',
-            'email'      => 'required|email',
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -56,13 +55,13 @@ class TaskController extends Controller
 //                ->withInput(Input::except('password'));
         } else {
             // store
-            $nerd = new Task;
-            $nerd->name       = $request::get('name');
-            $nerd->status     = 'created';
-            $nerd->description = $request::get('description');
-            $nerd->assignee = $request::get('assignee');
-            $nerd->assigner = $request::get('assigner');
-            $nerd->save();
+            $task = new Task;
+            $task->name       = $request::get('name');
+            $task->status     = 'created';
+            $task->description = $request::get('description');
+            $task->assignee = $request::get('assignee');
+            $task->assigner = $request::get('assigner');
+            $task->save();
 
             // redirect
             $request->session()->flash('message', 'Successfully created nerd!');
@@ -101,7 +100,36 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'name'       => 'required',
+            'assignee'   => 'required',
+            'assigner'   => 'required',
+            'description'   => 'nullable',
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return 'fail';
+//            return Redirect::to('nerds/create')
+//                ->withErrors($validator)
+//                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $task = Task::find($id);
+            $task->name       = $request::get('name');
+            $task->status     = 'modified';
+            $task->description = $request::get('description');
+            $task->assignee = $request::get('assignee');
+            $task->assigner = $request::get('assigner');
+            $task->save();
+
+            // redirect
+            $request->session()->flash('message', 'Successfully created nerd!');
+            return redirect()->route('login');
+        }
     }
 
     /**

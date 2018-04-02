@@ -15,4 +15,8 @@ Route::get('/settings', 'SettingsController@index')->name('settings');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::apiResource('users', 'UserController');
+//Route::apiResource('users', 'UserController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -21,5 +21,14 @@ use Illuminate\Support\Facades\Route;
 //    return "hello";
 //});
 
+
+
 Route::resource('users','UserController');
 Route::apiResource('tasks', 'TaskController');
+Route::apiResource('leaves', 'LeaveController');
+Route::post('login','Oauth@login');
+Route::post('register', 'Oauth@register');
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('get-details', 'PassportController@getDetails');
+});
