@@ -88,7 +88,7 @@ class Oauth extends Controller
             'role' => $request->input('role'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'name' => $request->input('fname') . ' ' . $request->input('lname')
+            'name' => ($request->input('fname') . ' ' . $request->input('lname'))
         ]);
         $http = new GuzzleHttp\Client;
         $response = $http->post(url('oauth/token'), [
