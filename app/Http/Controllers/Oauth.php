@@ -56,17 +56,17 @@ class Oauth extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'fname' => 'required',
-            'lname' => 'required',
-            'address' => 'required',
-            'telno' => 'required',
-            'fb' => 'required',
-            'ig' => 'required',
-            'line' => 'required',
-            'department' => 'required',
-            'role' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'telno' => 'required|string|max:255',
+            'fb' => 'required|string|max:255',
+            'ig' => 'required|string|max:255',
+            'line' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
             'c_password' => 'required|same:password',
         ]);
 
