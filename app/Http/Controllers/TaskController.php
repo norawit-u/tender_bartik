@@ -94,11 +94,11 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
+     * @param  \Illuminate\Http\Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
@@ -135,11 +135,17 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Task  $task
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+        // delete
+        $task = Task::find($id);
+        $task->delete();
+
+        // redirect
+
+        return response()->json('message', 'Successfully deleted the nerd!');
     }
 }
