@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use GuzzleHttp;
+use Illuminate\Support\Facades\Validator;
+
+class Oauth extends Controller
+{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+     */
+    public function login(Request $request){
+        $url = 'limitless-falls-39048.herokuapp.com/oauth/token';
+//        $data = array(
+//            'client_secret' => 'utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl',
+//            'grant_type' => 'password',
+//            'client_id' => '2',
+//            'username' => $request->input('username'),
+//            'password' => $request->input('password')
+//        );
+//
+//        // use key 'http' even if you send the request to https://...
+//        $options = array(
+//            'http' => array(
+////                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+//                'method'  => 'POST',
+//                'content' => http_build_query($data)
+//            )
+//        );
+////        return $options;
+//        $context  = stream_context_create($options);
+////        $result = http_post_data($url, false, $context);
+        $http = new GuzzleHttp\Client;
+        $response = $http->post(url('oauth/token'), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => 'utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl',
+                'username' => $request->input('username'),
+                'password' => $request->input('password')
+            ],
+        ]);
+        return json_decode((string) $response->getBody(), true);
+    }
+    /**
+     * Register api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required',
+            'lname' => 'required',
+            'address' => 'required',
+            'telno' => 'required',
+            'fb' => 'required',
+            'ig' => 'required',
+            'line' => 'required',
+            'department' => 'required',
+            'role' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create([
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'address' => $request->input('address'),
+            'telno' => $request->input('telno'),
+            'fb' => $request->input('fb'),
+            'ig' => $request->input('ig'),
+            'line' => $request->input('line'),
+            'department' => $request->input('department'),
+            'role' => $request->input('role'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'name' => $request->input('fname') . ' ' . $request->input('lname')
+        ]);
+        $http = new GuzzleHttp\Client;
+        $response = $http->post(url('oauth/token'), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => 'utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl',
+                'username' => $request->input('email'),
+                'password' => $request->input('password')
+            ],
+        ]);
+        return json_decode((string) $response->getBody(), true);
+    }
+}
