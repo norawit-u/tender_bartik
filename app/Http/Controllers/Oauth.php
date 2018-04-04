@@ -45,14 +45,15 @@ class Oauth extends Controller
                 'username' => $request->input('username'),
                 'password' => $request->input('password')
             ],
+            'http_errors' => false
         ]);
         return json_decode((string) $response->getBody(), true);
     }
     /**
      * Register api
      *
-     * @return \Illuminate\Http\Response
-     */
+     * @return \Psr\Http\Message\ResponseInterface
+*/
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -76,20 +77,22 @@ class Oauth extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::create([
-            'fname' => $request->input('fname'),
-            'lname' => $request->input('lname'),
-            'address' => $request->input('address'),
-            'telno' => $request->input('telno'),
-            'fb' => $request->input('fb'),
-            'ig' => $request->input('ig'),
-            'line' => $request->input('line'),
-            'department' => $request->input('department'),
-            'role' => $request->input('role'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'name' => ($request->input('fname') . ' ' . $request->input('lname'))
-        ]);
+//        $user = User::create([
+////            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
+//            'name' => 'aaa',
+//            'fname' => $request->input('fname'),
+//            'lname' => $request->input('lname'),
+//            'address' => $request->input('address'),
+//            'telno' => $request->input('telno'),
+//            'fb' => $request->input('fb'),
+//            'ig' => $request->input('ig'),
+//            'line' => $request->input('line'),
+//            'department' => $request->input('department'),
+//            'role' => $request->input('role'),
+//            'email' => $request->input('email'),
+//            'password' => bcrypt($request->input('password')),
+//
+//        ]);
         $http = new GuzzleHttp\Client;
         $response = $http->post(url('oauth/token'), [
             'form_params' => [
@@ -99,6 +102,7 @@ class Oauth extends Controller
                 'username' => $request->input('email'),
                 'password' => $request->input('password')
             ],
+            'http_errors' => false
         ]);
         return json_decode((string) $response->getBody(), true);
     }
