@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class Oauth extends Controller
@@ -36,12 +37,14 @@ class Oauth extends Controller
 ////        return $options;
 //        $context  = stream_context_create($options);
 ////        $result = http_post_data($url, false, $context);
+
+        $client = DB::table('oauth_clients')->where('id', 1)->first();
         $http = new GuzzleHttp\Client;
         $response = $http->post(url('oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => 'utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl',
+                'client_id' => '1',
+                'client_secret' =>  $client->secret,
                 'username' => $request->input('username'),
                 'password' => $request->input('password')
             ],
@@ -77,28 +80,29 @@ class Oauth extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-//        $user = User::create([
-////            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
-//            'name' => 'aaa',
-//            'fname' => $request->input('fname'),
-//            'lname' => $request->input('lname'),
-//            'address' => $request->input('address'),
-//            'telno' => $request->input('telno'),
-//            'fb' => $request->input('fb'),
-//            'ig' => $request->input('ig'),
-//            'line' => $request->input('line'),
-//            'department' => $request->input('department'),
-//            'role' => $request->input('role'),
-//            'email' => $request->input('email'),
-//            'password' => bcrypt($request->input('password')),
-//
-//        ]);
+        $user = User::create([
+//            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
+            'name' => 'aaa',
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'address' => $request->input('address'),
+            'telno' => $request->input('telno'),
+            'fb' => $request->input('fb'),
+            'ig' => $request->input('ig'),
+            'line' => $request->input('line'),
+            'department' => $request->input('department'),
+            'role' => $request->input('role'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+
+        ]);
         $http = new GuzzleHttp\Client;
+        $client = DB::table('oauth_clients')->where('id', 1)->first();
         $response = $http->post(url('oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => 'utjoZvK6I9lCADRw8XpWgsbgVyeoKy1Yt2uYcqVl',
+                'client_id' => '1',
+                'client_secret' =>  $client->secret,
                 'username' => $request->input('email'),
                 'password' => $request->input('password')
             ],
