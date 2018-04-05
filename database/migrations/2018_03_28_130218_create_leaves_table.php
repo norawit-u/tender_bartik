@@ -20,10 +20,13 @@ class CreateLeavesTable extends Migration
             $table->date('end');
             $table->string('type');
             $table->string('status');
+            $table->string('note');
             $table->unsignedInteger ('leaver_id');
             $table->unsignedInteger ('substitution_id');
+            $table->unsignedInteger ('task_id');
             $table->foreign('leaver_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('substitution_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });
     }
 

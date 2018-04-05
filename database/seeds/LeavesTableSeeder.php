@@ -1,6 +1,7 @@
 <?php
 
 use App\Leave;
+use App\Task;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -25,8 +26,10 @@ class LeavesTableSeeder extends Seeder
                 'end' => $faker->dateTime($max = 'now', $timezone = null) ,
                 'type' => $faker->tld,
                 'status' => $faker->tld,
+                'note' => $faker->tld,
                 'leaver_id' => $faker->randomElement(User::pluck('id')->toArray()),
                 'substitution_id' => $faker->randomElement(User::pluck('id')->toArray()),
+                'task_id' => $faker->randomElement(Task::pluck('id')->toArray()),
             ]);
         }
     }

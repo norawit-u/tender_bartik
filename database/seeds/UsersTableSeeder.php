@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 //        factory(App\User::class)->create(['email' => 'johndoe@scotch.io']);
-        factory(App\User::class, 10)->create([
+        factory(App\User::class, 3)->create([
             'fname' => $faker->name,
             'lname' => $faker->name,
             'address' => $faker->paragraph,
@@ -21,8 +21,30 @@ class UsersTableSeeder extends Seeder
             'fb' => $faker->name,
             'ig' => $faker->name,
             'line' => $faker->name,
-            'role' => $faker->name,
+            'role' => 'Administrator',
             'department' => $faker->name
-      ]);
+        ]);
+        factory(App\User::class, 3)->create([
+            'fname' => $faker->name,
+            'lname' => $faker->name,
+            'address' => $faker->paragraph,
+            'telno' => $faker->name,
+            'fb' => $faker->name,
+            'ig' => $faker->name,
+            'line' => $faker->name,
+            'role' => 'Supervisor',
+            'department' => $faker->name
+        ]);
+        factory(App\User::class, 3)->create([
+            'fname' => $faker->name,
+            'lname' => $faker->name,
+            'address' => $faker->paragraph,
+            'telno' => $faker->name,
+            'fb' => $faker->name,
+            'ig' => $faker->name,
+            'line' => $faker->name,
+            'role' => 'Subordinate',
+            'department' => $faker->name,
+        ]);
     }
 }

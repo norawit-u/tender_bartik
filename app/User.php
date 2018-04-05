@@ -34,9 +34,25 @@ class User extends Authenticatable
      * @var bool
      */
     public $timestamps = true;
+
     /**
      * The storage format of the model's date columns.
      *
      * @var string
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+
+    public function supervisors()
+    {
+        if ($this->role === 'Subordinates'){
+            return $this->belongsToMany('App\User','supervisor_subordinate', 'supervisor_id');
+        }
+
+    }
+    public function subordinates()
+    {
+        if ($this->role === 'Supervisor'){
+            return $this->belongsToMany('App\User','supervisor_subordinate', 'supervisor_id');
+        }
+    }
 }

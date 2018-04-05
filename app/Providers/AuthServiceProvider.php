@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Leave;
+use App\Policies\UserPolicy;
+use App\Task;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -15,6 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
+        Task::class => UserPolicy::class,
+        Leave::class => UserPolicy::class,
     ];
 
     /**
@@ -27,5 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Gate::resource('tasks', 'PostPolicy');
     }
 }
