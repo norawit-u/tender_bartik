@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -45,6 +46,8 @@ class UsersTableSeeder extends Seeder
             'line' => $faker->name,
             'role' => 'Subordinate',
             'department' => $faker->name,
+            'supervisor_id' => rand(3, 6)
         ]);
+
     }
 }

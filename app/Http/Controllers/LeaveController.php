@@ -150,4 +150,44 @@ class LeaveController extends Controller
 
         return response()->json('message', 'Successfully deleted the nerd!');
     }
+
+    /**
+     * Determine whether the user can delete the leave.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function approve($id)
+    {
+        try {
+            $leave = Leave::findOrFail($id);
+            $leave->status = 'approve';
+            $leave->save();
+            return response()->json(['message'=> 'Successfully approve leave.']);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e;
+        }
+    }
+
+    /**
+     * Determine whether the user can delete the leave.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function deny($id)
+    {
+        try{
+            $leave = Leave::findOrFail($id);
+            $leave->status = 'deny';
+            $leave->save();
+            return response()->json(['message'=>'Successfully deny leave.']);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e;
+        }
+    }
 }

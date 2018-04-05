@@ -20,10 +20,10 @@ class CreateLeavesTable extends Migration
             $table->date('end');
             $table->string('type');
             $table->string('status');
-            $table->string('note');
-            $table->unsignedInteger ('leaver_id');
-            $table->unsignedInteger ('substitution_id');
-            $table->unsignedInteger ('task_id');
+            $table->string('note')->nullable();
+            $table->unsignedInteger ('leaver_id')->nullable();
+            $table->unsignedInteger ('substitution_id')->nullable();
+            $table->unsignedInteger ('task_id')->nullable();
             $table->foreign('leaver_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('substitution_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');

@@ -19,8 +19,8 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->string('status');
             $table->string('description');
-            $table->unsignedInteger('assignee');
-            $table->unsignedInteger('assigner');
+            $table->unsignedInteger('assignee')->nullable();
+            $table->unsignedInteger('assigner')->nullable();
             $table->foreign('assignee')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('assigner')->references('id')->on('users')->onDelete('cascade');
         });
