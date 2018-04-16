@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Leave;
+use App\Policies\LeavePolicy;
+use App\Policies\TaskPolicy;
 use App\Policies\UserPolicy;
 use App\Task;
 use App\User;
@@ -20,8 +22,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
-        Task::class => UserPolicy::class,
-        Leave::class => UserPolicy::class,
+        Task::class => TaskPolicy::class,
+        Leave::class => LeavePolicy::class,
     ];
 
     /**
@@ -35,6 +37,5 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        Gate::resource('tasks', 'PostPolicy');
     }
 }

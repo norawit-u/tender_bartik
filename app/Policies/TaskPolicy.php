@@ -17,9 +17,11 @@ class TaskPolicy
      * @param  \App\Task  $task
      * @return mixed
      */
-    public function view(User $user, Task $task)
+    public function view(User $user)
     {
-        return $user->id === $task->assignee || $user->id === $task->assigner || $user->role === 'Supervisor';
+//        return $user->id === $task->assignee || $user->id === $task->assigner || $user->role === 'Supervisor';
+        return  $user->role === 'Supervisor';
+//        return true;
     }
 
     /**
@@ -30,9 +32,12 @@ class TaskPolicy
      */
     public function create(User $user)
     {
-        return $user->role === 'Supervisor';
+        return $user->role === 'Supervisor' || $user->role === 'Administrator';
+//        return true;
     }
-
+    public function show(User $user, Task $task){
+            return $user->role === 'Supervisor' || $task->assignee === $user->id;
+    }
     /**
      * Determine whether the user can update the task.
      *

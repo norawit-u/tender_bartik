@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class LeaveController extends Controller
 {
+    public function __construct()
+    {
+//        $this->authorizeResource(Task::class);
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +47,8 @@ class LeaveController extends Controller
         $rules = array(
             'start' => 'required|date',
             'end'   => 'required|date',
-            'typetype'   => 'required|string|max:255',
+            'type'   => 'required|string|max:255',
+            'note' => 'nullable|string',
             'status'   => 'required|string|max:255',
             'leaver_id'   => 'required|integer',
             'substitution_id'   => 'nullable'
@@ -51,24 +57,25 @@ class LeaveController extends Controller
 
         // process the login
         if ($validator->fails()) {
-            return 'faile';
+            return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
+//            return 'faile';
 //            return Redirect::to('nerds/create')
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
         // store
         $leave = new Leave();
-        $leave->start = $request::get('start');
-        $leave->end = $request::get('end');
-        $leave->typetype = $request::get('typetype');
-        $leave->status = $request::get('status');
-        $leave->leaver_id = $request::get('leaver_id');
-        $leave->substitution_id = $request::get('substitution_id');
+        $leave->start = $request->input('start');
+        $leave->end = $request->input('end');
+        $leave->type = $request->input('type');
+        $leave->status = $request->input('status');
+        $leave->note = $request->input('note');
+        $leave->leaver_id = $request->input('leaver_id');
+        $leave->substitution_id = $request->input('substitution_id');
+        $leave->task_id = $request->input('task_id');
         $leave->save();
 
-        // redirect
-        $request->session()->flash('message', 'Successfully created nerd!');
-        return redirect()->route('login');
+        return $leave;
 
     }
 
@@ -78,7 +85,7 @@ class LeaveController extends Controller
      * @param  \App\Leave  $leave
      * @return \Illuminate\Http\Response
      */
-    public function show(Leave $id)
+    public function show($id)
     {
         return Leave::findOrFail($id);
     }
@@ -103,13 +110,17 @@ class LeaveController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return $request->input('start');
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
-            'name'       => 'required',
-            'assignee'   => 'required',
-            'assigner'   => 'required',
-            'description'   => 'nullable',
+            'start' => 'required|date',
+            'end'   => 'required|date',
+            'type'   => 'required|string|max:255',
+            'note' => 'nullable|string',
+            'status'   => 'required|string|max:255',
+            'leaver_id'   => 'required|integer',
+            'substitution_id'   => 'nullable'
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -122,16 +133,17 @@ class LeaveController extends Controller
         }
         // store
         $leave = Leave::find($id);
-        $leave->name       = $request::get('name');
-        $leave->status     = 'modified';
-        $leave->description = $request::get('description');
-        $leave->assignee = $request::get('assignee');
-        $leave->assigner = $request::get('assigner');
+        $leave->start = $request->input('start');
+        $leave->end = $request->input('end');
+        $leave->type = $request->input('type');
+        $leave->status = $request->input('status');
+        $leave->note = $request->input('note');
+        $leave->leaver_id = $request->input('leaver_id');
+        $leave->substitution_id = $request->input('substitution_id');
+        $leave->task_id = $request->input('task_id');
         $leave->save();
 
-        // redirect
-        $request->session()->flash('message', 'Successfully created nerd!');
-        return redirect()->route('login');
+        return response()->json(['message' =>'successful','data'=>$leave]);
     }
 
     /**

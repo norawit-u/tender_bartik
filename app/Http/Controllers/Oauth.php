@@ -110,4 +110,5 @@ class Oauth extends Controller
         ]);
         return json_decode((string) $response->getBody(), true);
     }
+
 }

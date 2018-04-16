@@ -115,8 +115,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json(request()->user());
-//        return User::findOrFail($user);
+//        return response()->json(request()->user());
+        return User::findOrFail($user);
     }
 
     /**
@@ -153,6 +153,14 @@ class UserController extends Controller
         //
     }
 
-
+    public function tasks(){
+        return response()->json(request()->user()->tasks());
+    }
+    public function leaves(){
+        return response()->json(request()->user()->leaves());
+    }
+    public function current(){
+        return response()->json(request()->user());
+    }
 
 }

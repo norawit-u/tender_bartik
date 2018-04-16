@@ -30,6 +30,10 @@ Route::get('leaves/{leave}/deny', 'LeaveController@deny');
 Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');
+Route::get('user', 'UserController@current');
+Route::get('me/tasks', 'UserController@tasks');
+Route::get('me/leaves', 'UserController@leaves');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('get-details', 'PassportController@getDetails');

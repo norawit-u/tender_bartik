@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
+
 {
+    public function __construct()
+    {
+//        $this->authorizeResource(Task::class);
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        if(request()->user()->can('view',Task::class)){
+            return Task::all();
+        }
+        return response()->json(['message' => 'Not authorized.'],403);
     }
 
     /**
@@ -37,36 +47,35 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'name'       => 'required',
-            'assignee'   => 'required',
-            'assigner'   => 'required',
-            'description'   => 'nullable',
-        );
-        $validator = Validator::make($request->all(), $rules);
+        if(request()->user()->can('create',Task::class)) {
+            // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'name' => 'required',
+                'status' => 'nullable',
+                'assignee' => 'nullable',
+                'assigner' => 'required',
+                'description' => 'nullable',
+            );
+            $validator = Validator::make($request->all(), $rules);
 
-        // process the login
-        if ($validator->fails()) {
-            return 'faile';
-//            return Redirect::to('nerds/create')
-//                ->withErrors($validator)
-//                ->withInput(Input::except('password'));
-        } else {
+            // process the login
+            if ($validator->fails()) {
+                return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
+            }
             // store
             $task = new Task;
-            $task->name       = $request::get('name');
-            $task->status     = 'created';
-            $task->description = $request::get('description');
-            $task->assignee = $request::get('assignee');
-            $task->assigner = $request::get('assigner');
+            $task->name = $request->input('name');
+            $task->status = 'created';
+            $task->description = $request->input('description');
+            $task->assignee = $request->input('assignee');
+            $task->assigner = $request->input('assigner');
             $task->save();
 
-            // redirect
-            $request->session()->flash('message', 'Successfully created nerd!');
-            return redirect()->route('login');
+//            return redirect()->route('login');
+            return response()->json(['message' => 'Successfully created Task!']);
         }
+        return response()->json(['error' => 'Not authorized.'],403);
     }
 
     /**
@@ -77,7 +86,12 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return Task::findOrFail($id);
+//        return Task::findOrFail($id);;
+        $task = Task::findOrFail($id);
+        if(request()->user()->can('show',$task)){
+            return $task;
+        }
+        return response()->json(['message' => 'Not authorized.'],403);
     }
 
     /**
@@ -100,36 +114,42 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'name'       => 'required',
-            'assignee'   => 'required',
-            'assigner'   => 'required',
-            'description'   => 'nullable',
-        );
-        $validator = Validator::make($request->all(), $rules);
+//        return $request;
+        if(request()->user()->can('create',Task::class)) {
+            // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'name' => 'required',
+                'status' => 'nullable',
+                'assignee' => 'nullable',
+                'assigner' => 'required',
+                'description' => 'nullable',
+            );
+            $validator = Validator::make($request->all(), $rules);
 
-        // process the login
-        if ($validator->fails()) {
-            return 'fail';
+            // process the login
+            if ($validator->fails()) {
+                return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
 //            return Redirect::to('nerds/create')
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
-        } else {
+            }
             // store
             $task = Task::find($id);
-            $task->name       = $request::get('name');
-            $task->status     = 'modified';
-            $task->description = $request::get('description');
-            $task->assignee = $request::get('assignee');
-            $task->assigner = $request::get('assigner');
+            $task->name = $request->input('name');
+            $task->status = 'created';
+            $task->description = $request->input('description');
+            $task->assignee = $request->input('assignee');
+            $task->assigner = $request->input('assigner');
             $task->save();
 
             // redirect
-            $request->session()->flash('message', 'Successfully created nerd!');
-            return redirect()->route('login');
+//            $request->session()->flash('message', 'Successfully created nerd!');
+//            return redirect()->route('login');
+            return response()->json(['message' => 'Successfully update Task!']);
+
         }
+        return response()->json(['message' => 'Not authorized.'],403);
     }
 
     /**
@@ -146,6 +166,6 @@ class TaskController extends Controller
 
         // redirect
 
-        return response()->json('message', 'Successfully deleted the nerd!');
+        return response()->json(['message' => 'Successfully created Task!']);
     }
 }
