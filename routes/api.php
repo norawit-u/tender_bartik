@@ -31,8 +31,14 @@ Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');
 Route::get('user', 'UserController@current');
+Route::get('me/upload_image', 'UserController@uploadImage');
 Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
+Route::get('me', 'UserController@me');
+Route::get('opt/administrator', 'LineController@genOTPAdministrator');
+Route::get('opt/supervisor', 'LineController@genOTPASupervisor');
+Route::get('opt/subordinate', 'LineController@genOTPASubordinate');
+Route::get('opt', 'LineController@genOTP');
 
 
 Route::group(['middleware' => 'auth:api'], function(){

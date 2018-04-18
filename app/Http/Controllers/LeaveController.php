@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Leave;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class LeaveController extends Controller
@@ -63,6 +65,7 @@ class LeaveController extends Controller
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
+
         // store
         $leave = new Leave();
         $leave->start = $request->input('start');
@@ -74,6 +77,13 @@ class LeaveController extends Controller
         $leave->substitution_id = $request->input('substitution_id');
         $leave->task_id = $request->input('task_id');
         $leave->save();
+        $task = Task::find($leave->task_id );
+        $lineId = DB::table('lineUser')
+            ->select(DB::raw('line_id'))
+            ->where('user_id', '=',$task->assigner)
+            ->get();
+//        return $lineId[0]->line_id;
+        $res = file_get_contents('http://128.199.88.139:22213/request_leave/'.$leave->task_id .'/'.$lineId[0]->line_id);
 
         return $leave;
 

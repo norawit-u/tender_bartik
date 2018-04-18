@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class TaskController extends Controller
             $rules = array(
                 'name' => 'required',
                 'status' => 'nullable',
-                'assignee' => 'nullable',
+                'assignee' => 'required',
                 'assigner' => 'required',
                 'description' => 'nullable',
             );
@@ -63,6 +64,30 @@ class TaskController extends Controller
             if ($validator->fails()) {
                 return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
             }
+//            return $request->user()->id;
+//            return $request->user()->id;
+            $isSub = false;
+            $subs = $request->user()->subordinates()->get();
+            foreach ($subs as &$sub){
+                if ($sub->id == $request->input('assignee')){
+                    $isSub = true;
+                    break;
+                }
+            }
+            $isSup = false;
+            $sups = User::find($request->input('assignee'))->supervisors()->get();
+//            return $sups;
+            foreach ($sups as &$sup){
+                if ($sup->id == $request->input('assigner')){
+                    $isSup = true;
+                    break;
+                }
+            }
+//            return ($isSup) ? 'true' : 'false';
+            if (!$isSub || !$isSup){
+                return response()->json(['message' =>'not sub of sup']);
+            }
+//            return $subs;
             // store
             $task = new Task;
             $task->name = $request->input('name');

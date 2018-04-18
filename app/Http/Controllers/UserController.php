@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Bridge\Client;
 
 class UserController extends Controller
@@ -163,4 +164,25 @@ class UserController extends Controller
         return response()->json(request()->user());
     }
 
+    public function uploadImage(Request $request){
+        $rules = array(
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return response()->json(['message' => 'form not valid', 'error' => $validator->errors()]);
+        }
+        return 'aa';
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images'), $imageName);
+        return back()
+            ->with('success','You have successfully upload image.')
+            ->with('image',$imageName);
+    }
+
+    public function me(Request $request){
+        return $request->user();
+    }
 }
