@@ -174,11 +174,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => 'form not valid', 'error' => $validator->errors()]);
         }
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
-        return back()
-            ->with('success','You have successfully upload image.')
-            ->with('image',$imageName);
+        return $request->images;
     }
 
     public function me(Request $request){
