@@ -190,7 +190,8 @@ class UserController extends Controller
         $img->stream(); // <-- Key point
 
         //dd();
-        return Storage::disk('local')->put('images/'.$fileName, $img, 'public');
+        Storage::disk('local')->put('images/'.$fileName, $img, 'public');
+        return 'images/'.$fileName;
     }
 
     public function me(Request $request){
