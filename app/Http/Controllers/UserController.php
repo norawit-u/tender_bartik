@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Bridge\Client;
 
@@ -174,7 +176,21 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => 'form not valid', 'error' => $validator->errors()]);
         }
-        return $request->images->store('images');
+//        return $request->images->store('images');
+
+
+        $image      = $request->file('images');
+        $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+        $img = Image::make($image->getRealPath());
+//        $img->resize(120, 120, function ($constraint) {
+//            $constraint->aspectRatio();
+//        });
+
+        $img->stream(); // <-- Key point
+
+        //dd();
+        return Storage::disk('local')->put('images/'.$fileName, $img, 'public');
     }
 
     public function me(Request $request){
