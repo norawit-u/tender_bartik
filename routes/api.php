@@ -31,7 +31,7 @@ Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');
 Route::get('user', 'UserController@current');
-Route::get('me/upload_image', 'UserController@uploadImage');
+Route::post('me/upload_image', 'UserController@uploadImage');
 Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
 Route::post('me/changePassword','Oauth@changePassword');

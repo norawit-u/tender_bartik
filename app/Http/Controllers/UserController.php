@@ -166,7 +166,7 @@ class UserController extends Controller
 
     public function uploadImage(Request $request){
         $rules = array(
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -185,4 +185,5 @@ class UserController extends Controller
     public function me(Request $request){
         return $request->user();
     }
+
 }
