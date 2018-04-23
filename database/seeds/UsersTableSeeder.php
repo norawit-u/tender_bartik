@@ -23,7 +23,8 @@ class UsersTableSeeder extends Seeder
             'ig' => $faker->name,
             'line' => $faker->name,
             'role' => 'Administrator',
-            'department' => $faker->name
+            'department' => $faker->name,
+            'image_path' => $faker->name,
         ]);
         factory(App\User::class, 3)->create([
             'fname' => $faker->name,
@@ -34,7 +35,8 @@ class UsersTableSeeder extends Seeder
             'ig' => $faker->name,
             'line' => $faker->name,
             'role' => 'Supervisor',
-            'department' => $faker->name
+            'department' => $faker->name,
+            'image_path' => $faker->name,
         ]);
         factory(App\User::class, 3)->create([
             'fname' => $faker->name,
@@ -46,7 +48,8 @@ class UsersTableSeeder extends Seeder
             'line' => $faker->name,
             'role' => 'Subordinate',
             'department' => $faker->name,
-            'supervisor_id' => rand(3, 6)
+            'supervisor_id' => rand(3, 6),
+            'image_path' => $faker->name,
         ]);
 
     }
