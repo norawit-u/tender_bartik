@@ -176,22 +176,23 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => 'form not valid', 'error' => $validator->errors()]);
         }
-        return storage_path($request->images->store('images','public'));
+        return $request->images->store('images','public');
+//        return storage_path($request->images->store('images','public'));
 
-
-        $image      = $request->file('images');
-        $fileName   = time() . '.' . $image->getClientOriginalExtension();
-
-        $img = Image::make($image->getRealPath());
-//        $img->resize(120, 120, function ($constraint) {
-//            $constraint->aspectRatio();
-//        });
-
-        $img->stream(); // <-- Key point
-
-        //dd();
-        Storage::disk('local')->put('images/'.$fileName, $img, 'public');
-        return 'images/'.$fileName;
+//
+//        $image      = $request->file('images');
+//        $fileName   = time() . '.' . $image->getClientOriginalExtension();
+//
+//        $img = Image::make($image->getRealPath());
+////        $img->resize(120, 120, function ($constraint) {
+////            $constraint->aspectRatio();
+////        });
+//
+//        $img->stream(); // <-- Key point
+//
+//        //dd();
+//        Storage::disk('local')->put('images/'.$fileName, $img, 'public');
+//        return 'images/'.$fileName;
     }
 
     public function me(Request $request){
