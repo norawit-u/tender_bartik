@@ -179,6 +179,7 @@ class UserController extends Controller
 
         $url = 'storage/' . (string)$request->images->store('images','public');
         $request->user()->image_path = $url;
+        $request->user()->save();
         return $url;
 //        return storage_path($request->images->store('images','public'));
 
