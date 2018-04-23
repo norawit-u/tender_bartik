@@ -177,7 +177,8 @@ class UserController extends Controller
             return response()->json(['message' => 'form not valid', 'error' => $validator->errors()]);
         }
 
-        $url = 'storage/'.$request->images->store('images','public');
+        $url = 'storage/' . (string)$request->images->store('images','public');
+        return $url;
         $request->user()->image_path = $url;
         return $url;
 //        return storage_path($request->images->store('images','public'));
