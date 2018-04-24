@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('line')->nullable();
             $table->string('role');
             $table->string('department');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->unsignedInteger ('supervisor_id')->nullable();

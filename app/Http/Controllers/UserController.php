@@ -142,7 +142,41 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'telno' => 'required|string|max:255',
+            'fb' => 'required|string|max:255',
+            'ig' => 'required|string|max:255',
+            'line' => 'nullable|string|max:255',
+            'department' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = $request->user()
+//            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
+            'name' => 'aaa',
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
+            'address' => $request->input('address'),
+            'telno' => $request->input('telno'),
+            'fb' => $request->input('fb'),
+            'ig' => $request->input('ig'),
+            'line' => $request->input('line'),
+            'department' => $request->input('department'),
+            'role' => $request->input('role'),
+            'email' => $request->input('email'),
+        ]);
+        $user->save();
+        return json_decode((string) $user->getBody(), true);
     }
 
     /**

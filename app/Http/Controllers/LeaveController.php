@@ -120,7 +120,6 @@ class LeaveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request->all();
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -141,7 +140,6 @@ class LeaveController extends Controller
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
-        return 'a';
         // store
         $leave = Leave::find($id);
         $leave->start = $request->input('start');

@@ -139,7 +139,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        return $request;
         if(request()->user()->can('create',Task::class)) {
             // validate
             // read more on validation at http://laravel.com/docs/validation
@@ -171,8 +170,8 @@ class TaskController extends Controller
             // redirect
 //            $request->session()->flash('message', 'Successfully created nerd!');
 //            return redirect()->route('login');
-            return response()->json(['message' => 'Successfully update Task!']);
-
+//            return response()->json(['message' => 'Successfully update Task!']);
+            return response()->json(['message' =>'successful','data'=>$task]);
         }
         return response()->json(['message' => 'Not authorized.'],403);
     }
