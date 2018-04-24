@@ -95,7 +95,7 @@ class Oauth extends Controller
             'role' => $request->input('role'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'image_path' => null
+            'image_path' => ''
         ]);
         $http = new GuzzleHttp\Client;
         $client = DB::table('oauth_clients')->where('id', 1)->first();
