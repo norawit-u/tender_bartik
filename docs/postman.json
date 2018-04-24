@@ -1,822 +1,984 @@
 {
-  "variables": [],
-  "info": {
-    "name": "Tender",
-    "_postman_id": "f854804c-ecbc-0129-1776-551a20b21a11",
-    "description": "",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Task",
-      "description": "",
-      "item": []
-    },
-    {
-      "name": "Leaves",
-      "description": "",
-      "item": []
-    },
-    {
-      "name": "Users",
-      "description": "",
-      "item": [
-        {
-          "name": "{{url}}/api/me/tasks",
-          "request": {
-            "url": "{{url}}/api/me/tasks",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me/leaves",
-          "request": {
-            "url": "{{url}}/api/me/leaves",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Auth",
-      "description": "",
-      "item": [
-        {
-          "name": "Login Administrator",
-          "request": {
-            "url": "{{url}}/api/login",
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "username",
-                  "value": "rafael.bailey@example.net",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "secret",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "Login Supervisor",
-          "request": {
-            "url": "{{url}}/api/login",
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "username",
-                  "value": "kellie00@example.com",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "secret",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "Login Subordinate",
-          "request": {
-            "url": "{{url}}/api/login",
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "username",
-                  "value": "anais03@example.com",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "secret",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/register",
-          "request": {
-            "url": "{{url}}/api/register",
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "fname",
-                  "value": "aaa",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "email",
-                  "value": "aa@aaa.aaaa",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "123456",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "c_password",
-                  "value": "123456",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "lname",
-                  "value": "a",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "address",
-                  "value": "qqw",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "telno",
-                  "value": "23423",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "fb",
-                  "value": "ew",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "ig",
-                  "value": "we",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "line",
-                  "value": "erwe",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "department",
-                  "value": "ewre",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "role",
-                  "value": "ewrwe",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "sub",
-      "description": "",
-      "item": [
-        {
-          "name": "{{url}}/api/me/leaves",
-          "request": {
-            "url": "{{url}}/api/me/leaves",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sub}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me/tasks",
-          "request": {
-            "url": "{{url}}/api/me/tasks",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sub}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves",
-          "request": {
-            "url": "{{url}}/api/leaves",
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sub}}",
-                "description": ""
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "start",
-                  "value": "1976-01-20",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "end",
-                  "value": "2007-09-10",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "???",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "note",
-                  "value": "LOL",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "task_id",
-                  "value": "14",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "leaver_id",
-                  "value": "6",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "status",
-                  "value": "create",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/opt",
-          "request": {
-            "url": "{{url}}/api/opt",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sub}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me",
-          "request": {
-            "url": "{{url}}/api/me",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sub}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "sup",
-      "description": "",
-      "item": [
-        {
-          "name": "{{url}}/api/me/leaves",
-          "request": {
-            "url": "{{url}}/api/me/leaves",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me/tasks",
-          "request": {
-            "url": "{{url}}/api/me/tasks",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/tasks",
-          "request": {
-            "url": "{{url}}/api/tasks",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/tasks/1",
-          "request": {
-            "url": "{{url}}/api/tasks/1",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves",
-          "request": {
-            "url": "{{url}}/api/leaves",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves/1",
-          "request": {
-            "url": "{{url}}/api/leaves/1",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/tasks",
-          "request": {
-            "url": "{{url}}/api/tasks",
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "name",
-                  "value": "sdfdf",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "status",
-                  "value": "init",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "description",
-                  "value": "fdsgdfgfdfgfd",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "assigner",
-                  "value": "4",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "assignee",
-                  "value": "9",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves/1/approve",
-          "request": {
-            "url": "{{url}}/api/leaves/1/approve",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves/1/deny",
-          "request": {
-            "url": "{{url}}/api/leaves/1/deny",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/leaves/1",
-          "request": {
-            "url": "{{url}}/api/leaves/1",
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "start",
-                  "value": "1976-01-20",
-                  "description": ""
-                },
-                {
-                  "key": "end",
-                  "value": "2007-09-10",
-                  "description": ""
-                },
-                {
-                  "key": "type",
-                  "value": "???",
-                  "description": ""
-                },
-                {
-                  "key": "note",
-                  "value": "LOL",
-                  "description": ""
-                },
-                {
-                  "key": "task_id",
-                  "value": "1",
-                  "description": ""
-                },
-                {
-                  "key": "leaver_id",
-                  "value": "6",
-                  "description": ""
-                },
-                {
-                  "key": "status",
-                  "value": "create",
-                  "description": ""
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/opt",
-          "request": {
-            "url": "{{url}}/api/opt",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me",
-          "request": {
-            "url": "{{url}}/api/me",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_sup}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "ad",
-      "description": "",
-      "item": [
-        {
-          "name": "{{url}}/api/me/leaves",
-          "request": {
-            "url": "{{url}}/api/me/leaves",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_ad}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me/tasks",
-          "request": {
-            "url": "{{url}}/api/me/tasks",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_ad}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/register",
-          "request": {
-            "url": "{{url}}/api/register",
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_ad}}",
-                "description": ""
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "fname",
-                  "value": "aaa",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "email",
-                  "value": "aa@aaa.aaaa",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "123456",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "c_password",
-                  "value": "123456",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "lname",
-                  "value": "a",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "address",
-                  "value": "qqw",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "telno",
-                  "value": "23423",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "fb",
-                  "value": "ew",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "ig",
-                  "value": "we",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "line",
-                  "value": "erwe",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "department",
-                  "value": "ewre",
-                  "description": "",
-                  "type": "text"
-                },
-                {
-                  "key": "role",
-                  "value": "ewrwe",
-                  "description": "",
-                  "type": "text"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/opt",
-          "request": {
-            "url": "{{url}}/api/opt",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_ad}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        },
-        {
-          "name": "{{url}}/api/me",
-          "request": {
-            "url": "{{url}}/api/me",
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token_ad}}",
-                "description": ""
-              }
-            ],
-            "body": {},
-            "description": ""
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"variables": [],
+	"info": {
+		"name": "Tender",
+		"_postman_id": "f854804c-ecbc-0129-1776-551a20b21a11",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Task",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Leaves",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "{{url}}/api/me/tasks",
+					"request": {
+						"url": "{{url}}/api/me/tasks",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/leaves",
+					"request": {
+						"url": "{{url}}/api/me/leaves",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"description": "",
+			"item": [
+				{
+					"name": "Login Administrator",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "jude.osinski@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login Supervisor",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "barton.alisa@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login Subordinate",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "libbie.nader@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/register",
+					"request": {
+						"url": "{{url}}/api/register",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fname",
+									"value": "aaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "aa@aaa.aaaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "c_password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lname",
+									"value": "a",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "qqw",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "telno",
+									"value": "23423",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "fb",
+									"value": "ew",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "ig",
+									"value": "we",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "line",
+									"value": "erwe",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "department",
+									"value": "ewre",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "ewrwe",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sub",
+			"description": "",
+			"item": [
+				{
+					"name": "{{url}}/api/me/leaves",
+					"request": {
+						"url": "{{url}}/api/me/leaves",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/tasks",
+					"request": {
+						"url": "{{url}}/api/me/tasks",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves",
+					"request": {
+						"url": "{{url}}/api/leaves",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start",
+									"value": "1976-01-20",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "2007-09-10",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "???",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "LOL",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "task_id",
+									"value": "14",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "leaver_id",
+									"value": "6",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "create",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/opt",
+					"request": {
+						"url": "{{url}}/api/opt",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me",
+					"request": {
+						"url": "{{url}}/api/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/upload_image",
+					"request": {
+						"url": "{{url}}/api/me/upload_image",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"description": "",
+									"type": "file",
+									"src": "trunks-and-tailgates_ic_5.jpg"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login Subordinate",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "libbie.nader@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sup",
+			"description": "",
+			"item": [
+				{
+					"name": "{{url}}/api/me/leaves",
+					"request": {
+						"url": "{{url}}/api/me/leaves",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/tasks",
+					"request": {
+						"url": "{{url}}/api/me/tasks",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/tasks",
+					"request": {
+						"url": "{{url}}/api/tasks",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/tasks/1",
+					"request": {
+						"url": "{{url}}/api/tasks/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves",
+					"request": {
+						"url": "{{url}}/api/leaves",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves/1",
+					"request": {
+						"url": "{{url}}/api/leaves/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/tasks",
+					"request": {
+						"url": "{{url}}/api/tasks",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "sdfdf",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "init",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "fdsgdfgfdfgfd",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "assigner",
+									"value": "4",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "assignee",
+									"value": "9",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves/1/approve",
+					"request": {
+						"url": "{{url}}/api/leaves/1/approve",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves/1/deny",
+					"request": {
+						"url": "{{url}}/api/leaves/1/deny",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves/1",
+					"request": {
+						"url": "{{url}}/api/leaves/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start",
+									"value": "1976-01-20",
+									"description": ""
+								},
+								{
+									"key": "end",
+									"value": "2007-09-10",
+									"description": ""
+								},
+								{
+									"key": "type",
+									"value": "???",
+									"description": ""
+								},
+								{
+									"key": "note",
+									"value": "LOL",
+									"description": ""
+								},
+								{
+									"key": "task_id",
+									"value": "1",
+									"description": ""
+								},
+								{
+									"key": "leaver_id",
+									"value": "6",
+									"description": ""
+								},
+								{
+									"key": "status",
+									"value": "create",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/opt",
+					"request": {
+						"url": "{{url}}/api/opt",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me",
+					"request": {
+						"url": "{{url}}/api/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/upload_image",
+					"request": {
+						"url": "{{url}}/api/me/upload_image",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"description": "",
+									"type": "file",
+									"src": "fender.png"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login Supervisor",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "barton.alisa@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ad",
+			"description": "",
+			"item": [
+				{
+					"name": "{{url}}/api/me/leaves",
+					"request": {
+						"url": "{{url}}/api/me/leaves",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/tasks",
+					"request": {
+						"url": "{{url}}/api/me/tasks",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/register",
+					"request": {
+						"url": "{{url}}/api/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fname",
+									"value": "aaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "aa@aaa.aaaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "c_password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lname",
+									"value": "a",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "qqw",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "telno",
+									"value": "23423",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "fb",
+									"value": "ew",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "ig",
+									"value": "we",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "line",
+									"value": "erwe",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "department",
+									"value": "ewre",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "ewrwe",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/opt",
+					"request": {
+						"url": "{{url}}/api/opt",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me",
+					"request": {
+						"url": "{{url}}/api/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/upload_image",
+					"request": {
+						"url": "{{url}}/api/me/upload_image",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"value": "",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login Administrator",
+					"request": {
+						"url": "{{url}}/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "jude.osinski@example.org",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }

@@ -120,7 +120,7 @@ class LeaveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request->input('start');
+        return $request->all();
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -136,11 +136,12 @@ class LeaveController extends Controller
 
         // process the login
         if ($validator->fails()) {
-            return 'fail';
+            return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
 //            return Redirect::to('nerds/create')
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
+        return 'a';
         // store
         $leave = Leave::find($id);
         $leave->start = $request->input('start');
