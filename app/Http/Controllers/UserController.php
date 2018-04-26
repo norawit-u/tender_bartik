@@ -232,11 +232,11 @@ class UserController extends Controller
     }
 
     public function subordinates (Request $request){
-        return response()->json($request->user()->subordinates());
+        return response()->json($request->user()->subordinates()->get());
     }
 
     public function supervisors (Request $request){
-        return response()->json($request->user()->supervisors());
+        return response()->json($request->user()->supervisors()->get());
     }
 
 }
