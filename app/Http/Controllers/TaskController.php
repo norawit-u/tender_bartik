@@ -55,7 +55,7 @@ class TaskController extends Controller
                 'name' => 'required',
                 'status' => 'nullable',
                 'assignee' => 'required',
-                'assigner' => 'required',
+                'assigner' => 'nullable',
                 'description' => 'nullable',
             );
             $validator = Validator::make($request->all(), $rules);
@@ -94,7 +94,7 @@ class TaskController extends Controller
             $task->status = 'created';
             $task->description = $request->input('description');
             $task->assignee = $request->input('assignee');
-            $task->assigner = $request->input('assigner');
+            $task->assigner = $request->user()->id;
             $task->save();
 
 //            return redirect()->route('login');
@@ -146,7 +146,7 @@ class TaskController extends Controller
                 'name' => 'required',
                 'status' => 'nullable',
                 'assignee' => 'nullable',
-                'assigner' => 'required',
+                'assigner' => 'nullable',
                 'description' => 'nullable',
             );
             $validator = Validator::make($request->all(), $rules);
@@ -164,7 +164,8 @@ class TaskController extends Controller
             $task->status = 'created';
             $task->description = $request->input('description');
             $task->assignee = $request->input('assignee');
-            $task->assigner = $request->input('assigner');
+//            $task->assigner = $request->input('assigner');
+            $task->assigner = $request->user()->id;
             $task->save();
 
             // redirect
