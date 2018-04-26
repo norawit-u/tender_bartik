@@ -149,7 +149,6 @@ class UserController extends Controller
             'telno' => 'required|string|max:255',
             'fb' => 'required|string|max:255',
             'ig' => 'required|string|max:255',
-            'line' => 'nullable|string|max:255',
             'department' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -158,25 +157,20 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
-
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = $request->user()
+        $user = $request->user();
 //            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
-            'name' => 'aaa',
-            'fname' => $request->input('fname'),
-            'lname' => $request->input('lname'),
-            'address' => $request->input('address'),
-            'telno' => $request->input('telno'),
-            'fb' => $request->input('fb'),
-            'ig' => $request->input('ig'),
-            'line' => $request->input('line'),
-            'department' => $request->input('department'),
-            'role' => $request->input('role'),
-            'email' => $request->input('email'),
-        ]);
+        $user->fname = $request->input('fname');
+        $user->lname = $request->input('lname');
+        $user->address = $request->input('address');
+        $user->telno = $request->input('telno');
+        $user->fb = $request->input('fb');
+        $user->ig = $request->input('ig');
+        $user->department = $request->input('department');
+        $user->role = $request->input('role');
+        $user->email = $request->input('email');
         $user->save();
-        return json_decode((string) $user->getBody(), true);
+        return json_decode((string) $user, true);
     }
 
     /**
@@ -235,6 +229,14 @@ class UserController extends Controller
 
     public function me(Request $request){
         return $request->user();
+    }
+
+    public function subordinates (Request $request){
+        return response()->json($request->user()->subordinates());
+    }
+
+    public function supervisors (Request $request){
+        return response()->json($request->user()->supervisors());
     }
 
 }

@@ -34,6 +34,8 @@ Route::get('user', 'UserController@current');
 Route::post('me/upload_image', 'UserController@uploadImage');
 Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
+Route::get('me/supervisors', 'UserController@supervisors');
+Route::get('me/subordinates', 'UserController@subordinates');
 Route::post('me/changePassword','Oauth@changePassword');
 Route::get('me', 'UserController@me');
 Route::get('opt/administrator', 'LineController@genOTPAdministrator');

@@ -623,11 +623,16 @@
 								"key": "Authorization",
 								"value": "{{token_sup}}",
 								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
+							"mode": "urlencoded",
+							"urlencoded": [
 								{
 									"key": "start",
 									"value": "1976-01-20",
@@ -756,6 +761,57 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "{{url}}/api/tasks/1",
+					"request": {
+						"url": "{{url}}/api/tasks/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "sdfdf",
+									"description": ""
+								},
+								{
+									"key": "status",
+									"value": "init",
+									"description": ""
+								},
+								{
+									"key": "description",
+									"value": "fdsgdfgfdfgfd",
+									"description": ""
+								},
+								{
+									"key": "assigner",
+									"value": "4",
+									"description": ""
+								},
+								{
+									"key": "assignee",
+									"value": "9",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -793,6 +849,99 @@
 							}
 						],
 						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/register",
+					"request": {
+						"url": "{{url}}/api/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fname",
+									"value": "aaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "aa@aaa.aaaa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "c_password",
+									"value": "123456",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lname",
+									"value": "a",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "qqw",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "telno",
+									"value": "23423",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "fb",
+									"value": "ew",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "ig",
+									"value": "we",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "line",
+									"value": "erwe",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "department",
+									"value": "ewre",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "ewrwe",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
 						"description": ""
 					},
 					"response": []
