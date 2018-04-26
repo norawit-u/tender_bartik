@@ -52,7 +52,7 @@ class LeaveController extends Controller
             'type'   => 'required|string|max:255',
             'note' => 'nullable|string',
             'status'   => 'required|string|max:255',
-            'leaver_id'   => 'required|integer',
+//            'leaver_id'   => 'required|integer',
             'substitution_id'   => 'nullable'
         );
         $validator = Validator::make($request->all(), $rules);
@@ -73,7 +73,8 @@ class LeaveController extends Controller
         $leave->type = $request->input('type');
         $leave->status = $request->input('status');
         $leave->note = $request->input('note');
-        $leave->leaver_id = $request->input('leaver_id');
+//        $leave->leaver_id = $request->input('leaver_id');
+        $leave->leaver_id = $request->user()->id;
         $leave->substitution_id = $request->input('substitution_id');
         $leave->task_id = $request->input('task_id');
         $leave->save();
@@ -128,7 +129,7 @@ class LeaveController extends Controller
             'type'   => 'required|string|max:255',
             'note' => 'nullable|string',
             'status'   => 'required|string|max:255',
-            'leaver_id'   => 'required|integer',
+//            'leaver_id'   => 'required|integer',
             'substitution_id'   => 'nullable'
         );
         $validator = Validator::make($request->all(), $rules);
@@ -147,7 +148,8 @@ class LeaveController extends Controller
         $leave->type = $request->input('type');
         $leave->status = $request->input('status');
         $leave->note = $request->input('note');
-        $leave->leaver_id = $request->input('leaver_id');
+//        $leave->leaver_id = $request->input('leaver_id');
+        $leave->leaver_id = $request->user()->id;
         $leave->substitution_id = $request->input('substitution_id');
         $leave->task_id = $request->input('task_id');
         $leave->save();
