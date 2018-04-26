@@ -78,7 +78,7 @@ class TaskController extends Controller
             $sups = User::find($request->input('assignee'))->supervisors()->get();
 //            return $sups;
             foreach ($sups as &$sup){
-                if ($sup->id == $request->input('assigner')){
+                if ($sup->id == $request->user()->id){
                     $isSup = true;
                     break;
                 }
