@@ -65,7 +65,6 @@ class LeaveController extends Controller
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
-
         // store
         $leave = new Leave();
         $leave->start = $request->input('start');
@@ -84,7 +83,7 @@ class LeaveController extends Controller
             ->where('user_id', '=',$task->assigner)
             ->get();
 //        return $lineId[0]->line_id;
-        $res = file_get_contents('http://128.199.88.139:22213/request_leave/'.$leave->task_id .'/'.$lineId[0]->line_id);
+//        $res = file_get_contents('http://128.199.88.139:22213/request_leave/'.$leave->task_id .'/'.$lineId[0]->line_id);
 
         return $leave;
 
