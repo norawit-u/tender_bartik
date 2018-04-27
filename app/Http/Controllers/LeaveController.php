@@ -84,6 +84,10 @@ class LeaveController extends Controller
             ->select(DB::raw('line_id'))
             ->where('user_id', '=',$task->assigner)
             ->get();
+        $leaverLinId = DB::table('lineUser')
+            ->select(DB::raw('line_id'))
+            ->where('user_id', '=',$request->user()->id)
+            ->get();
 //        return $lineId[count($lineId)-1]->line_id;
 //        $res = file_get_contents(''.$leave->task_id .'/'.$lineId[0]->line_id);
         $http = new GuzzleHttp\Client;
@@ -96,7 +100,8 @@ class LeaveController extends Controller
                 'task_id' => $request->input('task_id'),
                 'leave_id' => $leave->id,
                 'leaver_name' => $request->user()->fname . ' ' . $request->user()->lname,
-                'authorization' => $header
+                'authorization' => $header,
+                'line_sub'=> $leaverLinId
             ],
             'http_errors' => false
         ]);
