@@ -93,7 +93,8 @@ class LeaveController extends Controller
                 'start_date' => $request->input('start'),
                 'end_date' => $request->input('end'),
                 'line_id' =>  $lineId[count($lineId)-1]->line_id,
-                'task_id' => $request->input('task_id')
+                'task_id' => $request->input('task_id'),
+                'leave_id' => $leave->id
             ],
             'http_errors' => false
         ]);
