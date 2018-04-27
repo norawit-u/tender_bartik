@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Bridge\Client;
@@ -26,6 +27,11 @@ class UserController extends Controller
 //
 //        $this->users = $users;
 //    }
+    public function __construct()
+    {
+//        $this->authorizeResource(Task::class);
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -231,12 +237,24 @@ class UserController extends Controller
         return $request->user();
     }
 
-    public function subordinates (Request $request){
+    public function mySubordinates (Request $request){
         return response()->json($request->user()->subordinates()->get());
     }
 
-    public function supervisors (Request $request){
+    public function mySupervisors (Request $request){
         return response()->json($request->user()->supervisors()->get());
+    }
+
+    public function supervisors (Request $request){
+        return DB::table('users')->where('role','=','Supervisor')->get();
+    }
+
+    public function subordinates (Request $request){
+        return DB::table('users')->where('role','=','Subordinate')->get();
+    }
+
+    public function administrators (Request $request){
+        return DB::table('users')->where('role','=','Administrator')->get();
     }
 
 }

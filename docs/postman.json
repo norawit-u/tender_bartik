@@ -310,13 +310,13 @@
 								},
 								{
 									"key": "task_id",
-									"value": "14",
+									"value": "20",
 									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "leaver_id",
-									"value": "6",
+									"value": "8",
 									"description": "",
 									"type": "text"
 								},
@@ -1158,6 +1158,57 @@
 								}
 							]
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/users/administrators",
+					"request": {
+						"url": "{{url}}/api/users/administrators",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/users/supervisors",
+					"request": {
+						"url": "{{url}}/api/users/supervisors",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/users/subordinates",
+					"request": {
+						"url": "{{url}}/api/users/subordinates",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ad}}",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []

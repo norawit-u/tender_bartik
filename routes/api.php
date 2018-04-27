@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::resource('users','UserController');
+
 Route::apiResource('tasks', 'TaskController');
 Route::get('leaves/{leave}/approve', 'LeaveController@approve');
 Route::get('leaves/{leave}/deny', 'LeaveController@deny');
@@ -31,11 +31,15 @@ Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');
 Route::get('user', 'UserController@current');
+Route::get('users/supervisors', 'UserController@supervisors');
+Route::get('users/subordinates', 'UserController@subordinates');
+Route::get('users/administrators', 'UserController@administrators');
+Route::resource('users','UserController');
 Route::post('me/upload_image', 'UserController@uploadImage');
 Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
-Route::get('me/supervisors', 'UserController@supervisors');
-Route::get('me/subordinates', 'UserController@subordinates');
+Route::get('me/supervisors', 'UserController@mySupervisors');
+Route::get('me/subordinates', 'UserController@mySubordinates');
 Route::post('me/changePassword','Oauth@changePassword');
 Route::get('me', 'UserController@me');
 Route::get('opt/administrator', 'LineController@genOTPAdministrator');
