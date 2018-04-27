@@ -92,6 +92,7 @@ class LeaveController extends Controller
 //        $res = file_get_contents(''.$leave->task_id .'/'.$lineId[0]->line_id);
         $http = new GuzzleHttp\Client;
         $header = $request->header('Authorization');
+//        return $leaverLinId[count($lineId)-1]->line_id;
         $response = $http->post('http://128.199.88.139:22212/notification', [
             'form_params' => [
                 'start_date' => $request->input('start'),
@@ -101,7 +102,7 @@ class LeaveController extends Controller
                 'leave_id' => $leave->id,
                 'leaver_name' => $request->user()->fname . ' ' . $request->user()->lname,
                 'authorization' => $header,
-                'line_sub'=> $leaverLinId
+                'line_sub'=> $leaverLinId[count($lineId)-1]->line_id
             ],
             'http_errors' => false
         ]);
