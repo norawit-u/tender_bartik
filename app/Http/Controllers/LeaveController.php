@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Leave;
 use App\Task;
+use GuzzleHttp;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,14 +79,26 @@ class LeaveController extends Controller
         $leave->task_id = $request->input('task_id');
         $leave->save();
         $task = Task::find($leave->task_id );
+//        return $task;
         $lineId = DB::table('lineUser')
             ->select(DB::raw('line_id'))
             ->where('user_id', '=',$task->assigner)
             ->get();
-//        return $lineId[0]->line_id;
-//        $res = file_get_contents('http://128.199.88.139:22213/request_leave/'.$leave->task_id .'/'.$lineId[0]->line_id);
+//        return $lineId[count($lineId)-1]->line_id;
+//        $res = file_get_contents(''.$leave->task_id .'/'.$lineId[0]->line_id);
 
-        return $leave;
+        $http = new GuzzleHttp\Client;
+        $response = $http->post('http://128.199.88.139:22212/notification', [
+            'form_params' => [
+                'start_date' => $request->input('start'),
+                'end_date' => $request->input('end'),
+                'line_id' =>  $lineId[count($lineId)-1]->line_id,
+                'task_id' => $request->input('task_id')
+            ],
+            'http_errors' => false
+        ]);
+        return $response;
+//        return $leave;
 
     }
 

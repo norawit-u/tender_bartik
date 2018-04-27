@@ -419,6 +419,23 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/supervisors",
+					"request": {
+						"url": "{{url}}/api/me/supervisors",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sub}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -565,11 +582,12 @@
 									"key": "assigner",
 									"value": "4",
 									"description": "",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "assignee",
-									"value": "9",
+									"value": "7",
 									"description": "",
 									"type": "text"
 								}
@@ -809,6 +827,23 @@
 								}
 							]
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/api/me/subordinates",
+					"request": {
+						"url": "{{url}}/api/me/subordinates",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sup}}",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
