@@ -62,15 +62,15 @@ class User extends Authenticatable
         return $this->belongsTo('App\User','supervisor_id');
     }
     public function tasks(){
-        if ($this->role = 'Supervisor') {
+        if ($this->role == 'Supervisor') {
             return $this->hasMany('App\Task','assigner')->get();
         }
         return $this->hasMany('App\Task','assignee')->get();
     }
     public function leaves(){
-        if ($this->role = 'Supervisor') {
-            
-        }
+//        if ($this->role = 'Supervisor') {
+//
+//        }
         return $this->hasMany('App\Leave','leaver_id')->get();
     }
 }
