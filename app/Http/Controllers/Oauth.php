@@ -95,7 +95,7 @@ class Oauth extends Controller
             'department' => $request->input('department'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
-            'supervisor_id' => $request->input('supervisor_id');
+            'supervisor_id' => $request->input('supervisor_id'),
             'password' => bcrypt($request->input('password')),
             'image_path' => ''
         ]);
