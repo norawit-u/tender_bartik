@@ -156,7 +156,7 @@ class UserController extends Controller
             'fb' => 'required|string|max:255',
             'ig' => 'required|string|max:255',
             'department' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
+//            'role' => 'required|string|max:255',
 //            'email' => 'required|string|email|max:255',
         ]);
 
@@ -173,7 +173,7 @@ class UserController extends Controller
         $user->fb = $request->input('fb');
         $user->ig = $request->input('ig');
         $user->department = $request->input('department');
-        $user->role = $request->input('role');
+//        $user->role = $request->input('role');
         $user->email = $request->input('email');
         $user->save();
         return json_decode((string) $user, true);
