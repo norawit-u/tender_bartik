@@ -163,6 +163,7 @@ class UserController extends Controller
             'ig' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'role' => 'nullable|string|max:255',
+            'supervisor_id' => 'nullable'
 //            'email' => 'required|string|email|max:255',
         ]);
 
@@ -179,6 +180,7 @@ class UserController extends Controller
         $user->fb = $request->input('fb');
         $user->ig = $request->input('ig');
         $user->department = $request->input('department');
+        $user->supervisor_id = $request->input('supervisor_id');
         if($request->user()->role == 'Administrator' && $id) {
             $user->role = $request->input('role');
         }

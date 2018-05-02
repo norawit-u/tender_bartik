@@ -71,6 +71,7 @@ class Oauth extends Controller
             'department' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'supervisor_id' => 'nullable',
             'password' => 'required|string|min:6',
             'c_password' => 'required|same:password',
         ]);
@@ -94,6 +95,7 @@ class Oauth extends Controller
             'department' => $request->input('department'),
             'role' => $request->input('role'),
             'email' => $request->input('email'),
+            'supervisor_id' => $request->input('supervisor_id');
             'password' => bcrypt($request->input('password')),
             'image_path' => ''
         ]);
