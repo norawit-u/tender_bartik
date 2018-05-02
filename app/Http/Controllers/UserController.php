@@ -174,7 +174,7 @@ class UserController extends Controller
         $user->ig = $request->input('ig');
         $user->department = $request->input('department');
 //        $user->role = $request->input('role');
-        $user->email = $request->input('email');
+//        $user->email = $request->input('email');
         $user->save();
         return json_decode((string) $user, true);
     }
