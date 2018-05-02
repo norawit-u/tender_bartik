@@ -54,7 +54,7 @@ class LeaveController extends Controller
             'note' => 'nullable|string',
             'status'   => 'required|string|max:255',
 //            'leaver_id'   => 'required|integer',
-            'substitution_id'   => 'nullable'
+                'substitution_id'   => 'nullable'
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -66,12 +66,44 @@ class LeaveController extends Controller
 //                ->withErrors($validator)
 //                ->withInput(Input::except('password'));
         }
+//        $allLeavve = true;
+
+        if($request->input('substitution_id')){
+            $substritude = User::find($request->input('substitution_id'));
+            foreach ($substritude->leaves() as $sub_leave){
+                if (strtotime($sub_leave->start) <= strtotime($request->input('start')) &&
+                    strtotime($sub_leave->end) >= strtotime($request->input('emd'))
+                ){
+                    return response()->json(['message' =>'substitute already have task this day']);
+//                    return response()->json([
+//                        $sub_leave->start,
+//                        $request->input('start'),
+//                        $sub_leave->end,
+//                        $request->input('end')
+//                    ]);
+                }
+//                return response()->json([
+//                    $sub_leave->start,
+//                    $request->input('start'),
+//                    $sub_leave->end,
+//                    $request->input('end')
+//                ]);
+//                return response()->json([
+//                    strtotime($sub_leave->start),
+//                    strtotime($request->input('start')),
+//                    strtotime($sub_leave->end),
+//                    strtotime($request->input('end'))
+//                ]);
+            }
+            return $substritude;
+        }
         // store
         $leave = new Leave();
         $leave->start = $request->input('start');
         $leave->end = $request->input('end');
         $leave->type = $request->input('type');
-        $leave->status = $request->input('status');
+//        $leave->status = $request->input('status');
+        $leave->status = "pending";
         $leave->note = $request->input('note');
 //        $leave->leaver_id = $request->input('leaver_id');
         $leave->leaver_id = $request->user()->id;
