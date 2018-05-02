@@ -266,4 +266,21 @@ class LeaveController extends Controller
             return $e;
         }
     }
+    public function pending (Request $request)
+    {
+        if ($request->user()->role == 'Supervisor')
+        {
+            $ids = array();
+            foreach($request->user()->subordinates()->get() as $sub){
+                array_push($ids, $sub->id);
+            }
+//            return $ids;
+            return DB::table('leaves')
+                ->select(DB::raw('*'))
+                ->whereIn('leaver_id', $ids)
+                ->where('status','=','pending')
+                ->get();
+        }
+
+    }
 }

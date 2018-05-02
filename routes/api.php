@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('tasks', 'TaskController');
 Route::get('leaves/{leave}/approve', 'LeaveController@approve');
 Route::get('leaves/{leave}/deny', 'LeaveController@deny');
+Route::get('leaves/pending', 'LeaveController@pending');
 Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');

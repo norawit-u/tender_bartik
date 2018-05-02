@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,9 +69,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Task','assignee')->get();
     }
     public function leaves(){
-//        if ($this->role = 'Supervisor') {
-//
-//        }
+
+        if ($this->role = 'Supervisor') {
+            $ids = array();
+            foreach($this->subordinates()->get() as $usb){
+                array_push($ids, $usb->id);
+            }
+//            return $ids;
+            return DB::table('leaves')
+                ->select(DB::raw('*'))
+                ->whereIn('leaver_id', $ids)
+                ->get();
+        }
         return $this->hasMany('App\Leave','leaver_id')->get();
     }
 }
