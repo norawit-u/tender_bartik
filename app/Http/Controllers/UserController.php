@@ -157,7 +157,7 @@ class UserController extends Controller
             'ig' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'role' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
         ]);
 
         if ($validator->fails()) {

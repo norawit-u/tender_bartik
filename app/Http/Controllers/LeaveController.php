@@ -95,7 +95,8 @@ class LeaveController extends Controller
 //                    strtotime($request->input('end'))
 //                ]);
             }
-            return $substritude;
+//            return 'fail';
+//            return $substritude;
         }
         // store
         $leave = new Leave();
