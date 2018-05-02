@@ -157,7 +157,7 @@ class UserController extends Controller
             'ig' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'role' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+//            'email' => 'required|string|email|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -168,7 +168,7 @@ class UserController extends Controller
 //            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
         $user->fname = $request->input('fname');
         $user->lname = $request->input('lname');
-        $user->address = $request->input('address');
+//        $user->address = $request->input('address');
         $user->telno = $request->input('telno');
         $user->fb = $request->input('fb');
         $user->ig = $request->input('ig');
