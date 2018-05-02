@@ -146,8 +146,14 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        if($request->user()->role == 'Administrator' && $id) {
+            $user = User::find($id);
+        }
+        else {
+            $user = $request->user();
+        }
         $validator = Validator::make($request->all(), [
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
@@ -156,7 +162,7 @@ class UserController extends Controller
             'fb' => 'required|string|max:255',
             'ig' => 'required|string|max:255',
             'department' => 'required|string|max:255',
-//            'role' => 'required|string|max:255',
+            'role' => 'nullable|string|max:255',
 //            'email' => 'required|string|email|max:255',
         ]);
 
@@ -164,7 +170,7 @@ class UserController extends Controller
             return response()->json(['error'=>$validator->errors()], 400);
         }
         $input = $request->all();
-        $user = $request->user();
+
 //            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
         $user->fname = $request->input('fname');
         $user->lname = $request->input('lname');
@@ -173,7 +179,9 @@ class UserController extends Controller
         $user->fb = $request->input('fb');
         $user->ig = $request->input('ig');
         $user->department = $request->input('department');
-//        $user->role = $request->input('role');
+        if($request->user()->role == 'Administrator' && $id) {
+            $user->role = $request->input('role');
+        }
 //        $user->email = $request->input('email');
         $user->save();
         return json_decode((string) $user, true);
