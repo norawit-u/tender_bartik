@@ -55,7 +55,7 @@ class TaskController extends Controller
                 'name' => 'required',
                 'status' => 'nullable',
                 'assignee' => 'required',
-                'start' => 'required|data',
+                'start' => 'required|date',
                 'end' => 'required|date',
                 'assigner' => 'nullable',
                 'description' => 'nullable',
