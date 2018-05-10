@@ -68,7 +68,7 @@ class Oauth extends Controller
             'fb' => 'required|string|max:255',
             'ig' => 'required|string|max:255',
             'line' => 'nullable|string|max:255',
-            'department' => 'required|string|max:255',
+            'department' => 'nullable|string|max:255',
             'role' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'supervisor_id' => 'nullable',
@@ -99,6 +99,9 @@ class Oauth extends Controller
             'password' => bcrypt($request->input('password')),
             'image_path' => ''
         ]);
+        if($request->input('role') == 'Subordinate'){
+            $user->depatemanet = User::find($request->input('supervisor_id'))->depatemanet;
+        }
         $http = new GuzzleHttp\Client;
         $client = DB::table('oauth_clients')->where('id', 1)->first();
         $response = $http->post(url('oauth/token'), [

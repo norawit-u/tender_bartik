@@ -12,7 +12,7 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'status', 'description', 'assignee', 'assignerz'
+        'name', 'status', 'description', 'assignee', 'assignerz', 'start', 'end'
     ];
 
     public $timestamps = true;

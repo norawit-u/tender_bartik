@@ -52,7 +52,7 @@ class LeaveController extends Controller
             'end'   => 'required|date',
             'type'   => 'required|string|max:255',
             'note' => 'nullable|string',
-            'status'   => 'required|string|max:255',
+            'status'   => 'nullable|string|max:255',
 //            'leaver_id'   => 'required|integer',
                 'substitution_id'   => 'nullable'
         );

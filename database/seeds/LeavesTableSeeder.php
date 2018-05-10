@@ -24,7 +24,7 @@ class LeavesTableSeeder extends Seeder
             Leave::create([
                 'start' => $faker->dateTime($max = 'now', $timezone = null) ,
                 'end' => $faker->dateTime($max = 'now', $timezone = null) ,
-                'type' => $faker->tld,
+                'type' => $faker->randomElement($array = array ('to-do','doing','done')),
                 'status' => $faker->tld,
                 'note' => $faker->tld,
                 'leaver_id' => $faker->randomElement(User::pluck('id')->toArray()),

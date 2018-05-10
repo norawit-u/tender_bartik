@@ -13,7 +13,24 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+
+        $url = 'storage/' . (string)$request->images->store('images','public');
+        $request->user()->image_path = $url;
+        $request->user()->save();
+
 //        factory(App\User::class)->create(['email' => 'johndoe@scotch.io']);
+        factory(App\User::class, 3)->create([
+            'fname' => "Adam",
+            'lname' => "Warlock",
+            'address' => $faker->paragraph,
+            'telno' => $faker->e164PhoneNumber,
+            'fb' => "Adam Warlock",
+            'ig' => "Adam Warlock",
+            'line' => "AdamWarlock",
+            'role' => 'Administrator',
+            'department' => "Computer",
+            'image_path' => $faker->name,
+        ]);
         factory(App\User::class, 3)->create([
             'fname' => $faker->name,
             'lname' => $faker->name,

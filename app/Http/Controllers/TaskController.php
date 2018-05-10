@@ -55,6 +55,8 @@ class TaskController extends Controller
                 'name' => 'required',
                 'status' => 'nullable',
                 'assignee' => 'required',
+                'start' => 'required|data',
+                'end' => 'required|date',
                 'assigner' => 'nullable',
                 'description' => 'nullable',
             );
@@ -65,7 +67,10 @@ class TaskController extends Controller
                 return response()->json(['message' =>'form not valid','error'=>$validator->errors()]);
             }
 //            return $request->user()->id;
-//            return $request->user()->id;
+            if(strtotime($request->input('start'))>=strtotime($request->input('end'))){
+                return response()->json(['message' =>'form not valid','error'=>"end date before start date"]);
+            }
+//          check sub of task
             $isSub = false;
             $subs = $request->user()->subordinates()->get();
             foreach ($subs as &$sub){
@@ -74,6 +79,7 @@ class TaskController extends Controller
                     break;
                 }
             }
+//          check sup of sub
             $isSup = false;
             $sups = User::find($request->input('assignee'))->supervisors()->get();
 //            return $sups;
@@ -92,6 +98,8 @@ class TaskController extends Controller
             $task = new Task;
             $task->name = $request->input('name');
             $task->status = 'created';
+            $task->start = $request->input('start');
+            $task->end = $request->input('end');
             $task->description = $request->input('description');
             $task->assignee = $request->input('assignee');
             $task->assigner = $request->user()->id;
@@ -144,6 +152,8 @@ class TaskController extends Controller
             // read more on validation at http://laravel.com/docs/validation
             $rules = array(
                 'name' => 'required',
+                'start' => 'nullable',
+                'end' => 'nullable',
                 'status' => 'nullable',
                 'assignee' => 'nullable',
                 'assigner' => 'nullable',
@@ -162,6 +172,8 @@ class TaskController extends Controller
             $task = Task::find($id);
             $task->name = $request->input('name');
             $task->status = 'created';
+            $task->start = $request->input('start');
+            $task->end = $request->input('end');
             $task->description = $request->input('description');
             $task->assignee = $request->input('assignee');
 //            $task->assigner = $request->input('assigner');
