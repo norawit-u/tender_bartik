@@ -70,7 +70,7 @@ class User extends Authenticatable
     }
     public function leaves(){
 
-        if ($this->role == 'Supervisor') {
+        if ($this->role ==   'Supervisor') {
             $ids = array();
             foreach($this->subordinates()->get() as $usb){
                 array_push($ids, $usb->id);

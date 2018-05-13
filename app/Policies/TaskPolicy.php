@@ -20,7 +20,7 @@ class TaskPolicy
     public function view(User $user)
     {
 //        return $user->id === $task->assignee || $user->id === $task->assigner || $user->role === 'Supervisor';
-        return  $user->role === 'Supervisor';
+        return  $user->role === 'Supervisor' || $user->role === 'Administrator';
 //        return true;
     }
 
