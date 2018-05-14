@@ -241,7 +241,7 @@ class LeaveController extends Controller
     {
         try {
             $leave = Leave::findOrFail($id);
-            $leave->status = 'approve';
+            $leave->status = 'approved';
             $leave->save();
             return response()->json(['message'=> 'Successfully approve leave.']);
         }
@@ -261,7 +261,7 @@ class LeaveController extends Controller
     {
         try{
             $leave = Leave::findOrFail($id);
-            $leave->status = 'deny';
+            $leave->status = 'denied';
             $leave->save();
             return response()->json(['message'=>'Successfully deny leave.']);
         }

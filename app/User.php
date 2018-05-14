@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class User extends Authenticatable
 {
@@ -81,6 +82,7 @@ class User extends Authenticatable
                 ->whereIn('leaver_id', $ids)
                 ->get();
         }
-        return $this->hasMany('App\Leave','leaver_id')->get();
+//        return QueryBuilder::for(Leave::class)->allowedIncludes('task')->get();
+        return $this->hasMany('App\Leave','leaver_id')->join('users','id','=','substitution_id')->get();
     }
 }
