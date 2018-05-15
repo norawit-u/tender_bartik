@@ -57,19 +57,42 @@ class LineController extends Controller
     }
 
     public function addTask(Request $request, $id){
-
+        $token = $this->getToken($id);
+        if(!$token){
+            return response()->json(['message' => 'cannot find user', 'error' => null]);
+        }
+        return response()->json([
+            'token'=> json_decode($token->getBody(),true),
+            'url'=> URL::to('/api/tasks'),
+            'method' => 'post'
+        ]);
     }
     public function listTask(Request $request, $id){
-
+        $user = $this->getUser($id);
+        if(!$user){
+            return response()->json(['message' => 'cannot find user', 'error' => null]);
+        }
+        return response()->json($user->tasks());
     }
     public function listLeave(Request $request, $id){
-
+        $user = $this->getUser($id);
+        if(!$user){
+            return response()->json(['message' => 'cannot find user', 'error' => null]);
+        }
+        return response()->json($user->leaves());
     }
     public function requestLeave(Request $request, $id){
-
+        $token = $this->getToken($id);
+        if(!$token){
+            return response()->json(['message' => 'cannot find user', 'error' => null]);
+        }
+        return response()->json([
+            'token'=> json_decode($token->getBody(),true),
+            'url'=> URL::to('/api/leaves'),
+            'method' => 'post'
+        ]);
     }
-
-    private function getToken($id){
+    private function getUser($id){
         $userId = DB::table('lineUser')
             ->select(DB::raw('user_id'))
             ->where('line_id', '=', $id)
@@ -80,12 +103,15 @@ class LineController extends Controller
             return null;
         }
         try{
-            $user = User::findOrFail($userId[count($userId)-1]->user_id);
+            return User::findOrFail($userId[count($userId)-1]->user_id);
         }
         catch(ModelNotFoundException $e)
         {
-            return $e->getMessage();
+            return null;
         }
+    }
+    private function getToken($id){
+        $user = $this->getuser($id);
         return $this->getBearerTokenByUser($user, 1, true);
     }
 }
