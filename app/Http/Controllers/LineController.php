@@ -49,10 +49,11 @@ class LineController extends Controller
         if(!$token){
             return response()->json(['message' => 'cannot find user', 'error' => null]);
         }
-        return response()->json(array_merge($token,[
+        return response()->json([
+            'token'=> $token->getBody(),
             'url'=> URL::to('/api/users'),
             'method' => 'post'
-        ]));
+        ]);
     }
 
     public function addTask(Request $request, $id){
