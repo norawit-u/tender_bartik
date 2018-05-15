@@ -40,4 +40,26 @@ class LineController extends Controller
             [$otp, request()->user()->id,'',request()->user()->role]);
         return response()->json(['opt'=>$otp]);
     }
+    public function addUser(Request $request, $id){
+        $lineId = DB::table('lineUser')
+            ->select(DB::raw('user_id'))
+            ->where('line_id', '=', $id)
+            ->get();
+        return response()->json([
+            'token'=>,
+            'url'=>
+        ]);
+    }
+    public function addTask(Request $request, $id){
+
+    }
+    public function listTask(Request $request, $id){
+
+    }
+    public function listLeave(Request $request, $id){
+
+    }
+    public function requestLeave(Request $request, $id){
+
+    }
 }

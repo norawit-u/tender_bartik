@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\PassportToken;
 use App\User;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Laravel\Passport\Bridge\Client;
 
 class UserController extends Controller
 {
+    use PassportToken;
     /**
      * The user repository instance.
      */
@@ -256,6 +258,7 @@ class UserController extends Controller
     }
 
     public function me(Request $request){
+        return $this->getBearerTokenByUser($request->user(), 1, true);
         return $request->user();
     }
 

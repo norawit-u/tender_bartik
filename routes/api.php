@@ -43,13 +43,21 @@ Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
 Route::get('me/supervisors', 'UserController@mySupervisors');
 Route::get('me/subordinates', 'UserController@mySubordinates');
-Route::post('me/changePassword','Oauth@changePassword');
+Route::post('me/changePassword','Oauth@changePassword')->middleware('auth');
 Route::put('me/','UserController@update');
 Route::get('me', 'UserController@me');
 Route::get('opt/administrator', 'LineController@genOTPAdministrator');
 Route::get('opt/supervisor', 'LineController@genOTPASupervisor');
 Route::get('opt/subordinate', 'LineController@genOTPASubordinate');
 Route::get('opt', 'LineController@genOTP');
+
+Route::get('line/addUser/{lineID}', 'LineController@addUser');
+Route::get('line/addTask/{lineID}', 'LineController@addTask');
+Route::get('line/listTask/{lineID}', 'LineController@listTask');
+Route::get('line/listLeave/{lineID}', 'LineController@listLeave');
+Route::get('line/requestLeave/{lineID}', 'LineController@requestLeave');
+Route::get('line/listTask/{lineID}', 'LineController@listTask');
+Route::get('line/listLeave/{lineID}', 'LineController@listTask');
 
 
 Route::group(['middleware' => 'auth:api'], function(){
