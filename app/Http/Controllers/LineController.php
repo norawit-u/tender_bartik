@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\PassportToken;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class LineController extends Controller
 {
-
+    use PassportToken;
     public function genOTPAdministrator(){
         $otp = file_get_contents('http://128.199.88.139:22211/administrator_otp');
         DB::insert('insert into lineUser (otp, user_id, line_id, role) values (?, ?, ?, ?)',
@@ -40,16 +43,19 @@ class LineController extends Controller
             [$otp, request()->user()->id,'',request()->user()->role]);
         return response()->json(['opt'=>$otp]);
     }
+
     public function addUser(Request $request, $id){
-        $lineId = DB::table('lineUser')
-            ->select(DB::raw('user_id'))
-            ->where('line_id', '=', $id)
-            ->get();
+        $token = $this->getToken($id);
+        if(!$token){
+            return response()->json(['message' => 'cannot find user', 'error' => null]);
+        }
         return response()->json([
-            'token'=>,
-            'url'=>
+            'token'=> $token,
+            'url'=> URL::to('/api/users'),
+            'method' => 'post'
         ]);
     }
+
     public function addTask(Request $request, $id){
 
     }
@@ -61,5 +67,25 @@ class LineController extends Controller
     }
     public function requestLeave(Request $request, $id){
 
+    }
+
+    private function getToken($id){
+        $userId = DB::table('lineUser')
+            ->select(DB::raw('user_id'))
+            ->where('line_id', '=', $id)
+            ->get();
+        //        chmod storage/660 oauth-p*
+        //        chown -R root:www-data oauth-p*
+        if(count($userId)<=0){
+            return null;
+        }
+        try{
+            $user = User::findOrFail($userId[count($userId)-1]->user_id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e->getMessage();
+        }
+        return $this->getBearerTokenByUser($user, 1, true);
     }
 }

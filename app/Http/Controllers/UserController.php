@@ -258,7 +258,6 @@ class UserController extends Controller
     }
 
     public function me(Request $request){
-        return $this->getBearerTokenByUser($request->user(), 1, true);
         return $request->user();
     }
 
