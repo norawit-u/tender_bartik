@@ -218,6 +218,7 @@ class TaskController extends Controller
             return response()->json(['message' => 'Not authorized.'],400);
         }
         $task->status = 'done';
+        $task->save();
         return response()->json(['message' => 'Successfully created Task!','data'=>$task]);
     }
 
@@ -234,6 +235,7 @@ class TaskController extends Controller
         }
         $task = Task::find($id);
         $task->status = 'doing';
+        $task->save();
         return response()->json(['message' => 'Successfully created Task!','data'=>$task]);
     }
 }
