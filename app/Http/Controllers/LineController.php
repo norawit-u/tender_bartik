@@ -50,7 +50,7 @@ class LineController extends Controller
             return response()->json(['message' => 'cannot find user', 'error' => null]);
         }
         return response()->json([
-            'token'=> $token->getBody(),
+            'token'=> json_decode($token->getBody(),true),
             'url'=> URL::to('/api/users'),
             'method' => 'post'
         ]);
