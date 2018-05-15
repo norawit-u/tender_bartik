@@ -171,7 +171,7 @@ class TaskController extends Controller
             // store
             $task = Task::find($id);
             $task->name = $request->input('name');
-            $task->status = 'created';
+            $task->status = 'to-do';
             $task->start = $request->input('start');
             $task->end = $request->input('end');
             $task->description = $request->input('description');
@@ -203,6 +203,37 @@ class TaskController extends Controller
 
         // redirect
 
-        return response()->json(['message' => 'Successfully created Task!']);
+        return response()->json(['message' => 'Successfully created Task!','data'=>$task]);
+    }
+
+    public function done(Request $request, $id){
+        try{
+            $task = Task::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e;
+        }
+        if($request->user()->id != $task->assignee){
+            return response()->json(['message' => 'Not authorized.'],400);
+        }
+        $task->status = 'done';
+        return response()->json(['message' => 'Successfully created Task!','data'=>$task]);
+    }
+
+    public function doing(Request $request, $id){
+        try{
+            $task = Task::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e;
+        }
+        if($request->user()->id != $task->assignee){
+            return response()->json(['message' => 'Not authorized.'],400);
+        }
+        $task = Task::find($id);
+        $task->status = 'doing';
+        return response()->json(['message' => 'Successfully created Task!','data'=>$task]);
     }
 }

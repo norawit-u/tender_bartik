@@ -67,7 +67,7 @@ class User extends Authenticatable
         if ($this->role == 'Supervisor') {
             return $this->hasMany('App\Task','assigner')->get();
         }
-        return $this->hasMany('App\Task','assignee')->get();
+        return $this->hasMany('App\Task','assignee')->as ->get();
     }
     public function leaves(){
 

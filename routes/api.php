@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::apiResource('tasks', 'TaskController');
+Route::get('tasks/{leave}/doing', 'TaskController@doing');
+Route::get('tasks/{leave}/done', 'TaskController@done');
 Route::get('leaves/{leave}/approve', 'LeaveController@approve');
 Route::get('leaves/{leave}/deny', 'LeaveController@deny');
 Route::get('leaves/pending', 'LeaveController@pending');
@@ -42,6 +44,7 @@ Route::get('me/leaves', 'UserController@leaves');
 Route::get('me/supervisors', 'UserController@mySupervisors');
 Route::get('me/subordinates', 'UserController@mySubordinates');
 Route::post('me/changePassword','Oauth@changePassword');
+Route::put('me/','UserController@update');
 Route::get('me', 'UserController@me');
 Route::get('opt/administrator', 'LineController@genOTPAdministrator');
 Route::get('opt/supervisor', 'LineController@genOTPASupervisor');

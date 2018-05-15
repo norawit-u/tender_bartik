@@ -81,6 +81,9 @@ class UserController extends Controller
             'password' => bcrypt($data['password']),
             'mobile' => $data['mobile']
         ]);
+        if($user->role == 'Subordinate'){
+            $user->department = User::find($user->supervisor_id)->department;
+        }
 
 //        // And created user until here.
 //
@@ -142,12 +145,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param null $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id=null)
     {
+
+        if($request->user()->role != 'Administrator' && $id) {
+            return response()->json(['message' => 'Not authorized.'],400);
+        }
         if($request->user()->role == 'Administrator' && $id) {
             $user = User::find($id);
         }
@@ -179,10 +186,15 @@ class UserController extends Controller
         $user->telno = $request->input('telno');
         $user->fb = $request->input('fb');
         $user->ig = $request->input('ig');
-        $user->department = $request->input('department');
-        $user->supervisor_id = $request->input('supervisor_id');
         if($request->user()->role == 'Administrator' && $id) {
             $user->role = $request->input('role');
+        }
+        if($user->role == 'Subordinate'){
+            $user->department = User::find($user->supervisor_id)->department;
+        }
+        else {
+            $user->supervisor_id = $request->input('supervisor_id');
+            $user->department = $request->input('department');
         }
 //        $user->email = $request->input('email');
         $user->save();
