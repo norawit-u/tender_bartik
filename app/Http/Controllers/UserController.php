@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Traits\PassportToken;
 use App\User;
 use Faker\Provider\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -258,7 +259,14 @@ class UserController extends Controller
     }
 
     public function me(Request $request){
-        return $request->user();
+        $user = $request->user();
+        try{
+            $user->supervisor = User::findOrFail($user->supervisor_id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+        }
+        return $user;
     }
 
     public function mySubordinates (Request $request){
@@ -274,7 +282,16 @@ class UserController extends Controller
     }
 
     public function subordinates (Request $request){
-        return DB::table('users')->where('role','=','Subordinate')->get();
+        $users =  DB::table('users')->where('role','=','Subordinate')->get();
+        foreach($users as $user){
+            try{
+                $user->supervisor = User::findOrFail($user->supervisor_id);
+            }
+            catch(ModelNotFoundException $e)
+            {
+            }
+        }
+        return $users;
     }
 
     public function administrators (Request $request){

@@ -24,7 +24,12 @@ class TaskController extends Controller
     public function index()
     {
         if(request()->user()->can('view',Task::class)){
-            return Task::all();
+            $tasks = Task::all();
+            foreach ($tasks as $task){
+                $task->assigner = User::find($task->assigner);
+                $task->assignee = User::find($task->assignee);
+            }
+            return $tasks;
         }
         return response()->json(['message' => 'Not authorized.'],403);
     }

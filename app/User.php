@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -57,17 +58,38 @@ class User extends Authenticatable
 //            return $this->belongsToMany('App\User','supervisor_subordinate', 'supervisor_id');
 //        }
 //    }
+
+    private function populateSupervisor($users){
+        foreach($users as $user){
+            try{
+                $user->supervisor = User::findOrFail($user->supervisor_id);
+            }
+            catch(ModelNotFoundException $e)
+            {
+            }
+        }
+        return $users;
+    }
     public function subordinates(){
-        return $this->hasMany('App\User', 'supervisor_id', 'id');
+        $users = $this->hasMany('App\User', 'supervisor_id', 'id');
+        return $this->populateSupervisor($users);
     }
     public function supervisors(){
-        return $this->belongsTo('App\User','supervisor_id');
+        $users =  $this->belongsTo('App\User','supervisor_id');
+        return $this->populateSupervisor($users);
     }
     public function tasks(){
         if ($this->role == 'Supervisor') {
-            return $this->hasMany('App\Task','assigner')->get();
+            $tasks = $this->hasMany('App\Task','assigner')->get();
         }
-        return $this->hasMany('App\Task','assignee')->get();
+        else {
+            $tasks = $this->hasMany('App\Task','assignee')->get();
+        }
+        foreach ($tasks as $task){
+            $task->assigner = User::find($task->assigner);
+            $task->assignee = User::find($task->assignee);
+        }
+        return $tasks;
     }
     public function leaves(){
 
@@ -77,12 +99,22 @@ class User extends Authenticatable
                 array_push($ids, $usb->id);
             }
 //            return $ids;
-            return DB::table('leaves')
+            $leaves = DB::table('leaves')
                 ->select(DB::raw('*'))
                 ->whereIn('leaver_id', $ids)
                 ->get();
         }
-        return $this->hasMany('App\Leave','leaver_id')->get();
+        else{
+            $leaves =$this->hasMany('App\Leave','leaver_id')->get();
+        }
+        foreach ($leaves as $leave){
+            $leave->leaver = User::find($leave->leaver_id);
+            $leave->substitution = User::find($leave->substitution_id);
+            $leave->task = Task::find($leave->task_id);
+            $leave->task->assigner = User::find($leave->task->assigner);
+            $leave->task->assignee = User::find($leave->task->assignee);
+        }
+        return $leaves;
     }
     public function substitution(){
         return $this->hasMany('App\Leave','substitution_id')->whereIn('status', ['pending','substituteApproved'])->get();
