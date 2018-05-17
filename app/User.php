@@ -82,7 +82,6 @@ class User extends Authenticatable
                 ->whereIn('leaver_id', $ids)
                 ->get();
         }
-//        return QueryBuilder::for(Leave::class)->allowedIncludes('task')->get();
-        return $this->hasMany('App\Leave','leaver_id')->join('users','id','=','substitution_id')->get();
+        return $this->hasMany('App\Leave','leaver_id')->get();
     }
 }

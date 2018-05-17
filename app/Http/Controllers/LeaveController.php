@@ -41,7 +41,7 @@ class LeaveController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function store(Request $request)
     {
@@ -53,8 +53,8 @@ class LeaveController extends Controller
             'type'   => 'required|string|max:255',
             'note' => 'nullable|string',
             'status'   => 'nullable|string|max:255',
-//            'leaver_id'   => 'required|integer',
-                'substitution_id'   => 'nullable'
+            'leaver_id'   => 'required|integer',
+            'substitution_id'   => 'required|integer'
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -70,6 +70,7 @@ class LeaveController extends Controller
 
         if($request->input('substitution_id')){
             $substritude = User::find($request->input('substitution_id'));
+//            return $substritude->leaves();
             foreach ($substritude->leaves() as $sub_leave){
                 if (strtotime($sub_leave->start) <= strtotime($request->input('start')) &&
                     strtotime($sub_leave->end) >= strtotime($request->input('emd'))
@@ -121,8 +122,7 @@ class LeaveController extends Controller
             ->select(DB::raw('line_id'))
             ->where('user_id', '=',$request->user()->id)
             ->get();
-//        return $lineId[count($lineId)-1]->line_id;
-//        $res = file_get_contents(''.$leave->task_id .'/'.$lineId[0]->line_id);
+
         $http = new GuzzleHttp\Client;
         $header = $request->header('Authorization');
         if(count($leaverLinId)<=0 || count($lineId)<=0){
@@ -231,17 +231,25 @@ class LeaveController extends Controller
         return response()->json('message', 'Successfully deleted the nerd!');
     }
 
-    /**
-     * Determine whether the user can delete the leave.
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function approve($id)
-    {
+    public function substituteApprove(Request $request, $id){
         try {
             $leave = Leave::findOrFail($id);
-            $leave->status = 'approved';
+            $leave->status = 'substituteApproved';
+            $leave->save();
+            return response()->json(['message'=> 'Successfully approve leave.']);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $e;
+        }
+    }
+    public function substituteDeny(Request $request, $id){
+        try {
+            $leave = Leave::findOrFail($id);
+            if($request->user()->id != $leave->substitution){
+                return response()->json(['message' =>'not valid substitution','error'=>'no permission'],400);
+            }
+            $leave->status = 'substituteDenied';
             $leave->save();
             return response()->json(['message'=> 'Successfully approve leave.']);
         }
@@ -254,20 +262,89 @@ class LeaveController extends Controller
     /**
      * Determine whether the user can delete the leave.
      *
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function approve(Request $request, $id)
+    {
+        try {
+            $leave = Leave::findOrFail($id);
+            if($request->user()->role == 'Subordinate'){
+                if($request->user()->id != $leave->substitution_id){
+                    return response()->json(['message' =>'not valid substitution','error'=>'no permission'],400);
+                }
+                $leave->status = 'substituteApproved';
+                $leave->save();
+                return response()->json(['message'=> 'Successfully approve leave.']);
+            }
+            if($request->user()->role == 'Supervisor'){
+                if($leave->status != 'substituteApproved'){
+                    return response()->json(['message' =>'wait for substitute to approve','error'=>'no permission'],400);
+                }
+                try{
+                    $task = Task::findOrFail($leave->task_id);
+                }
+                catch(ModelNotFoundException $e)
+                {
+                    return response()->json(['message' =>'task not found','error'=>$e],400);
+                }
+                if($request->user()->id != $task->assigner){
+                    return response()->json(['message' =>'not valid supervisor','error'=>'no permission'],400);
+                }
+                $leave->status = 'approved';
+                $leave->save();
+                return response()->json(['message'=> 'Successfully approve leave.']);
+            }
+            return  response()->json(['message'=> 'not thing to do'],400);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['message' =>'leave not found','error'=>$e],400);
+        }
+    }
+
+    /**
+     * Determine whether the user can delete the leave.
+     *
      * @param $id
      * @return mixed
      */
     public function deny($id)
     {
-        try{
+        try {
             $leave = Leave::findOrFail($id);
-            $leave->status = 'denied';
-            $leave->save();
-            return response()->json(['message'=>'Successfully deny leave.']);
+            if($request->user()->role == 'Subordinate'){
+                if($request->user()->id != $leave->substitution_id){
+                    return response()->json(['message' =>'not valid substitution','error'=>'no permission'],400);
+                }
+                $leave->status = 'substituteDenied';
+                $leave->save();
+                return response()->json(['message'=> 'Successfully approve leave.']);
+            }
+            if($request->user()->role == 'Supervisor'){
+                if($leave->status != 'substituteApproved'){
+                    return response()->json(['message' =>'wait for substitute to approve','error'=>'no permission'],400);
+                }
+                try{
+                    $task = Task::findOrFail($leave->task_id);
+                }
+                catch(ModelNotFoundException $e)
+                {
+                    return response()->json(['message' =>'task not found','error'=>$e],400);
+                }
+                if($request->user()->id != $task->assigner){
+                    return response()->json(['message' =>'not valid supervisor','error'=>'no permission'],400);
+                }
+                $leave->status = 'denied';
+                $leave->save();
+                return response()->json(['message'=> 'Successfully deny leave.']);
+            }
+            return  response()->json(['message'=> 'not thing to do'],400);
         }
         catch(ModelNotFoundException $e)
         {
-            return $e;
+            return response()->json(['message' =>'leave not found','error'=>$e],400);
         }
     }
     public function pending (Request $request)
