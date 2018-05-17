@@ -82,6 +82,10 @@ class Oauth extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $department = $request->input('department');
+        if($request->input('role') == 'Subordinate'){
+            $department = User::find($request->input('supervisor_id'))->department;
+        }
         $user = User::create([
 //            'name' => ($request->input('fname') . ' ' . $request->input('lname')),
             'name' => 'aaa',
@@ -92,16 +96,13 @@ class Oauth extends Controller
             'fb' => $request->input('fb'),
             'ig' => $request->input('ig'),
             'line' => $request->input('line'),
-            'department' => $request->input('department'),
+            'department' => $department,
             'role' => $request->input('role'),
             'email' => $request->input('email'),
             'supervisor_id' => $request->input('supervisor_id'),
             'password' => bcrypt($request->input('password')),
             'image_path' => ''
         ]);
-        if($request->input('role') == 'Subordinate'){
-            $user->depatemanet = User::find($request->input('supervisor_id'))->depatemanet;
-        }
         $http = new GuzzleHttp\Client;
         $client = DB::table('oauth_clients')->where('id', 1)->first();
         $response = $http->post(url('oauth/token'), [
