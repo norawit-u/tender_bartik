@@ -383,32 +383,37 @@ class LeaveController extends Controller
         $subordinates = $supervisor->subordinates;
         $free_sub = array();
         foreach ($subordinates as $sub){
-            $free = false;
-            foreach ($sub->tasks() as $sub_task) {
-                if (strtotime($sub_task->start) < strtotime($task->start) &&
-                    strtotime($sub_task->end) < strtotime($task->start) ||
-                    strtotime($sub_task->start) > strtotime($task->end) &&
-                    strtotime($sub_task->end) > strtotime($task->end)){
-                    $free = true;
-                    break;
-                }
-            }
-            if(!$free){
-                break;
-            }
-            foreach ($sub->leaves() as $sub_leave) {
-                if (strtotime($sub_leave->start) < strtotime($task->start) &&
-                    strtotime($sub_leave->end) < strtotime($task->start) ||
-                    strtotime($sub_leave->start) > strtotime($task->end) &&
-                    strtotime($sub_leave->end) > strtotime($task->end)){
-                    $free = true;
-                    break;
-                }
-            }
-            if($free){
+            if($this->checkFree($sub, $task)){
                 array_push($free_sub, $sub);
             }
         }
         return $free_sub;
+    }
+
+    private function checkFree($sub, $task){
+        $free = false;
+        foreach ($sub->tasks() as $sub_task) {
+            if (strtotime($sub_task->start) < strtotime($task->start) &&
+                strtotime($sub_task->end) < strtotime($task->start) ||
+                strtotime($sub_task->start) > strtotime($task->end) &&
+                strtotime($sub_task->end) > strtotime($task->end)){
+                $free = true;
+                break;
+            }
+        }
+        if(!$free){
+            return false;
+        }
+        $free = false;
+        foreach ($sub->leaves() as $sub_leave) {
+            if (strtotime($sub_leave->start) < strtotime($task->start) &&
+                strtotime($sub_leave->end) < strtotime($task->start) ||
+                strtotime($sub_leave->start) > strtotime($task->end) &&
+                strtotime($sub_leave->end) > strtotime($task->end)){
+                $free = true;
+                break;
+            }
+        }
+        return $free;
     }
 }
