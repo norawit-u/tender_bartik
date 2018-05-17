@@ -280,5 +280,7 @@ class UserController extends Controller
     public function administrators (Request $request){
         return DB::table('users')->where('role','=','Administrator')->get();
     }
-
+    public function substitution (Request $request){
+        return $request->user()->substitution();
+    }
 }

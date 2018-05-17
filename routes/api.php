@@ -43,6 +43,7 @@ Route::resource('users','UserController');
 Route::post('me/upload_image', 'UserController@uploadImage');
 Route::get('me/tasks', 'UserController@tasks');
 Route::get('me/leaves', 'UserController@leaves');
+Route::get('me/substitution', 'UserController@substitution');
 Route::get('me/supervisors', 'UserController@mySupervisors');
 Route::get('me/subordinates', 'UserController@mySubordinates');
 Route::post('me/changePassword','Oauth@changePassword')->middleware('auth');

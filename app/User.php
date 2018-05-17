@@ -84,4 +84,7 @@ class User extends Authenticatable
         }
         return $this->hasMany('App\Leave','leaver_id')->get();
     }
+    public function substitution(){
+        return $this->hasMany('App\Leave','substitution_id')->whereIn('status', ['pending','substituteApproved'])->get();
+    }
 }

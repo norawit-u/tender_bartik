@@ -353,7 +353,7 @@
 								},
 								{
 									"key": "task_id",
-									"value": "20",
+									"value": "36",
 									"description": "",
 									"type": "text"
 								},
@@ -364,8 +364,8 @@
 									"type": "text"
 								},
 								{
-									"key": "status",
-									"value": "create",
+									"key": "substitution_id",
+									"value": "17",
 									"description": "",
 									"type": "text"
 								}
@@ -599,6 +599,23 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "{{url}}/api/leaves/45/approve",
+					"request": {
+						"url": "{{url}}/api/leaves/45/approve",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAyNzcxYzQxNzA5Njc5YzNhNWFlNTRlMTFlZjQzYzViNGMzMzRhNDA3NmRlYmZmNmJjYjY2ZjE2ZTg3MGY5YTA1MmVkMmUyMTgzYzJhMDhkIn0.eyJhdWQiOiIxIiwianRpIjoiMDI3NzFjNDE3MDk2NzljM2E1YWU1NGUxMWVmNDNjNWI0YzMzNGE0MDc2ZGViZmY2YmNiNjZmMTZlODcwZjlhMDUyZWQyZTIxODNjMmEwOGQiLCJpYXQiOjE1MjY1NzY0NTksIm5iZiI6MTUyNjU3NjQ1OSwiZXhwIjoxNTU4MTEyNDU5LCJzdWIiOiIxNyIsInNjb3BlcyI6W119.ESHej_abXvEsORbUXcaPGTxBnuKUrZy0EjZOfpzbNkGo_MAQ_LJozmZHgMWA1doXV4F54uiGVYLCORq8ZZXjDuh9ki98FnTeeQHo97_R872bY4uLEyveQL-G67ufBcUM_wri0SAndQHErr32nU7VE1_GS_lGEvqKopKc64Y8FVy383SwpkoinPN9kpzsH_kwQj_BKCf7vlAzPOwCeUkR2L0t4IVzqMbdgNkrlZ1jkWESRVDwf_q3BwbCRE0e8i1XmPn4FCjME2bUcNFB0bG4GmUljJW622g8FWBfrbsLaAP5la_kTdGr4nIXH5D2A2rTTIrhyKPqT7p0-vQ2B3PyUNOyC8BRUQe2X2YtH0NRFg3-anGEEZgw1ca98yBJtKZHEfOjWden20FONOSp_LvVWPbKBLqnkGAVL2KOvjMfa4Ks7mbJ20L2i6D3P9_v-ea6HmWh43_Mzw3fvFUeQnejklMejdUXkzWESUFjQBahm2l7FSGLvR27eSzIB7Wc4NyBsyLKtYXDGGdhYFQzDFApcB1ybB65o45aUOTWNO4dVE1j3rGbDIWcrXUd3HIHJOsW30O47H_RvzIQHMpmc0HC3-PS9-fKfR48Kv0yAZ3_e_7_oHz2T1JHSKY7piOGElMW92tiUOyiuNTEBg2qKcJ0coRu9Vhk-QQjsH6nQbjoQGg",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -736,7 +753,7 @@
 				{
 					"name": "{{url}}/api/leaves/1/approve",
 					"request": {
-						"url": "{{url}}/api/leaves/1/approve",
+						"url": "{{url}}/api/leaves/45/approve",
 						"method": "GET",
 						"header": [
 							{
