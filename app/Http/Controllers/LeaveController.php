@@ -6,6 +6,7 @@ use App\Leave;
 use App\Task;
 use GuzzleHttp;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -54,6 +55,7 @@ class LeaveController extends Controller
             'note' => 'nullable|string',
             'status'   => 'nullable|string|max:255',
             'leaver_id'   => 'required|integer',
+            'task_id'   => 'required|integer',
             'substitution_id'   => 'required|integer'
         );
         $validator = Validator::make($request->all(), $rules);
@@ -68,36 +70,22 @@ class LeaveController extends Controller
         }
 //        $allLeavve = true;
 
-        if($request->input('substitution_id')){
-            $substritude = User::find($request->input('substitution_id'));
-//            return $substritude->leaves();
-            foreach ($substritude->leaves() as $sub_leave){
-                if (strtotime($sub_leave->start) <= strtotime($request->input('start')) &&
-                    strtotime($sub_leave->end) >= strtotime($request->input('emd'))
-                ){
-                    return response()->json(['message' =>'substitute already have task this day']);
-//                    return response()->json([
-//                        $sub_leave->start,
-//                        $request->input('start'),
-//                        $sub_leave->end,
-//                        $request->input('end')
-//                    ]);
-                }
-//                return response()->json([
-//                    $sub_leave->start,
-//                    $request->input('start'),
-//                    $sub_leave->end,
-//                    $request->input('end')
-//                ]);
-//                return response()->json([
-//                    strtotime($sub_leave->start),
-//                    strtotime($request->input('start')),
-//                    strtotime($sub_leave->end),
-//                    strtotime($request->input('end'))
-//                ]);
-            }
-//            return 'fail';
-//            return $substritude;
+        try{
+            $task = Task::findOrFail($request->input('task_id'));
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['message' =>'task not found','error'=>$e],400);
+        }
+        try{
+            $substitute = User::findOrFail($request->input('substitution_id'));
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['message' =>'substitution_id not found','error'=>$e],400);
+        }
+        if(!$this->checkFree($substitute, $task)){
+            return response()->json(['message' =>'the substitute  not found','error'=>$substitute],400);
         }
         // store
         $leave = new Leave();
