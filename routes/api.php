@@ -32,6 +32,7 @@ Route::get('leaves/{leave}/deny', 'LeaveController@deny');
 Route::get('leaves/{leave}/approve', 'LeaveController@approve');
 Route::get('leaves/{leave}/deny', 'LeaveController@deny');
 Route::get('leaves/pending', 'LeaveController@pending');
+Route::get('leaves/substitutable/{task}', 'LeaveController@substitutable');
 Route::apiResource('leaves', 'LeaveController');
 Route::post('login','Oauth@login');
 Route::post('register', 'Oauth@register');

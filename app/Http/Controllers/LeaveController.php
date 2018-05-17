@@ -364,4 +364,51 @@ class LeaveController extends Controller
         }
 
     }
+
+    public function substitutable(Request $request, $task_id){
+        try{
+            $task = Task::findOrFail($task_id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['message' =>'task not found','error'=>$e],400);
+        }
+        try{
+            $supervisor = User::findOrFail($task->assigner);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['message' =>'task not found','error'=>$e],400);
+        }
+        $subordinates = $supervisor->subordinates;
+        $free_sub = array();
+        foreach ($subordinates as $sub){
+            $free = false;
+            foreach ($sub->tasks() as $sub_task) {
+                if (strtotime($sub_task->start) < strtotime($task->start) &&
+                    strtotime($sub_task->end) < strtotime($task->start) ||
+                    strtotime($sub_task->start) > strtotime($task->end) &&
+                    strtotime($sub_task->end) > strtotime($task->end)){
+                    $free = true;
+                    break;
+                }
+            }
+            if(!$free){
+                break;
+            }
+            foreach ($sub->leaves() as $sub_leave) {
+                if (strtotime($sub_leave->start) < strtotime($task->start) &&
+                    strtotime($sub_leave->end) < strtotime($task->start) ||
+                    strtotime($sub_leave->start) > strtotime($task->end) &&
+                    strtotime($sub_leave->end) > strtotime($task->end)){
+                    $free = true;
+                    break;
+                }
+            }
+            if($free){
+                array_push($free_sub, $sub);
+            }
+        }
+        return $free_sub;
+    }
 }
