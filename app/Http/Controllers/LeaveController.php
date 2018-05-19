@@ -387,26 +387,25 @@ class LeaveController extends Controller
     }
 
     private function checkFree($sub, $task){
-        $free = false;
+        $free = true;
         foreach ($sub->tasks() as $sub_task) {
-            if (strtotime($sub_task->start) < strtotime($task->start) &&
-                strtotime($sub_task->end) < strtotime($task->start) ||
-                strtotime($sub_task->start) > strtotime($task->end) &&
-                strtotime($sub_task->end) > strtotime($task->end)){
-                $free = true;
+            if (strtotime($sub_task->start) >= strtotime($task->start) &&
+                strtotime($sub_task->end) >= strtotime($task->start) ||
+                strtotime($sub_task->start) <= strtotime($task->end) &&
+                strtotime($sub_task->end) <= strtotime($task->end)){
+                $free = false;
                 break;
             }
         }
         if(!$free){
             return false;
         }
-        $free = false;
         foreach ($sub->leaves() as $sub_leave) {
-            if (strtotime($sub_leave->start) < strtotime($task->start) &&
-                strtotime($sub_leave->end) < strtotime($task->start) ||
-                strtotime($sub_leave->start) > strtotime($task->end) &&
-                strtotime($sub_leave->end) > strtotime($task->end)){
-                $free = true;
+            if (strtotime($sub_leave->start) >= strtotime($task->start) &&
+                strtotime($sub_leave->end) >= strtotime($task->start) ||
+                strtotime($sub_leave->start) <= strtotime($task->end) &&
+                strtotime($sub_leave->end) <= strtotime($task->end)){
+                $free = false;
                 break;
             }
         }

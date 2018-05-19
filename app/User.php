@@ -117,6 +117,14 @@ class User extends Authenticatable
         return $leaves;
     }
     public function substitution(){
-        return $this->hasMany('App\Leave','substitution_id')->whereIn('status', ['pending','substituteApproved'])->get();
+        $leaves = $this->hasMany('App\Leave','substitution_id')->whereIn('status', ['pending','substituteApproved'])->get();
+        foreach ($leaves as $leave){
+            $leave->leaver = User::find($leave->leaver_id);
+            $leave->substitution = User::find($leave->substitution_id);
+            $leave->task = Task::find($leave->task_id);
+            $leave->task->assigner = User::find($leave->task->assigner);
+            $leave->task->assignee = User::find($leave->task->assignee);
+        }
+        return $leaves;
     }
 }
