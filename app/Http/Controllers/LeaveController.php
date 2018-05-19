@@ -93,7 +93,7 @@ class LeaveController extends Controller
             return response()->json(['message' =>'substitution_id not found','error'=>$e],400);
         }
         if(!$this->checkFree($substitute, $task)){
-            return response()->json(['message' =>'the substitute  not found','error'=>$substitute],400);
+            return response()->json(['message' =>'the substitute  not free','error'=>$substitute],400);
         }
         // store
         $leave = new Leave();
@@ -290,6 +290,8 @@ class LeaveController extends Controller
                 }
                 $leave->status = 'approved';
                 $leave->save();
+                $task->assignee = $leave->substitution;
+                $task->save();
                 return response()->json(['message'=> 'Successfully approve leave.']);
             }
             return  response()->json(['message'=> 'not thing to do'],400);
@@ -387,27 +389,31 @@ class LeaveController extends Controller
     }
 
     private function checkFree($sub, $task){
-        $free = true;
+        $free = false;
         foreach ($sub->tasks() as $sub_task) {
-            if (strtotime($sub_task->start) >= strtotime($task->start) &&
-                strtotime($sub_task->end) >= strtotime($task->start) ||
-                strtotime($sub_task->start) <= strtotime($task->end) &&
-                strtotime($sub_task->end) <= strtotime($task->end)){
-                $free = false;
+            if (strtotime($sub_task->start) < strtotime($task->start) &&
+                strtotime($sub_task->end) < strtotime($task->start) ||
+                strtotime($sub_task->start) > strtotime($task->end) &&
+                strtotime($sub_task->end) > strtotime($task->end)){
+                $free = true;
                 break;
             }
         }
-        if(!$free){
+        if(!$free && count($sub->tasks()) > 0){
             return false;
         }
+        $free = false;
         foreach ($sub->leaves() as $sub_leave) {
-            if (strtotime($sub_leave->start) >= strtotime($task->start) &&
-                strtotime($sub_leave->end) >= strtotime($task->start) ||
-                strtotime($sub_leave->start) <= strtotime($task->end) &&
-                strtotime($sub_leave->end) <= strtotime($task->end)){
-                $free = false;
+            if (strtotime($sub_leave->start) < strtotime($task->start) &&
+                strtotime($sub_leave->end) < strtotime($task->start) ||
+                strtotime($sub_leave->start) > strtotime($task->end) &&
+                strtotime($sub_leave->end) > strtotime($task->end)){
+                $free = true;
                 break;
             }
+        }
+        if(count($sub->tasks()) == 0 && count($sub->leaves()) == 0){
+            return true;
         }
         return $free;
     }
