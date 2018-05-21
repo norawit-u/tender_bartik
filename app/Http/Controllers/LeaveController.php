@@ -354,11 +354,19 @@ class LeaveController extends Controller
                 array_push($ids, $sub->id);
             }
 //            return $ids;
-            return DB::table('leaves')
+            $leaves =  DB::table('leaves')
                 ->select(DB::raw('*'))
                 ->whereIn('leaver_id', $ids)
                 ->where('status','=','pending')
                 ->get();
+            foreach ($leaves as $leave){
+                $leave->leaver = User::find($leave->leaver_id);
+                $leave->substitution = User::find($leave->substitution_id);
+                $leave->task = Task::find($leave->task_id);
+                $leave->task->assigner = User::find($leave->task->assigner);
+                $leave->task->assignee = User::find($leave->task->assignee);
+            }
+            return $leaves;
         }
 
     }
