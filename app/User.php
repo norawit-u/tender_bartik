@@ -8,6 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\QueryBuilder\QueryBuilder;
+use Zend\Diactoros\Request;
 
 class User extends Authenticatable
 {
@@ -117,6 +118,25 @@ class User extends Authenticatable
         return $leaves;
     }
     public function substitution(){
+        if($this->role == 'Supervisor'){
+            $users = $this->hasMany('App\User', 'supervisor_id', 'id')->get();
+            $allLeaves = array();
+            foreach ($users as $user){
+                $leaves = $user->hasMany('App\Leave','substitution_id')->whereIn('status', ['substituteApproved'])->get();
+                foreach ($leaves as $leave){
+                    $leave->leaver = User::find($leave->leaver_id);
+                    $leave->substitution = User::find($leave->substitution_id);
+                    $leave->task = Task::find($leave->task_id);
+                    $leave->task->assigner = User::find($leave->task->assigner);
+                    $leave->task->assignee = User::find($leave->task->assignee);
+                }
+                if(count($leaves) >0){
+                    $allLeaves = $allLeaves + $leave->toArray();
+                }
+
+            }
+            return $allLeaves;
+        }
         $leaves = $this->hasMany('App\Leave','substitution_id')->whereIn('status', ['pending','substituteApproved'])->get();
         foreach ($leaves as $leave){
             $leave->leaver = User::find($leave->leaver_id);
