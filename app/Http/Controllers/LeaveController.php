@@ -357,7 +357,7 @@ class LeaveController extends Controller
             $leaves =  DB::table('leaves')
                 ->select(DB::raw('*'))
                 ->whereIn('leaver_id', $ids)
-                ->where('status','=','pending')
+                ->where('status','=','substituteApproved')
                 ->get();
             foreach ($leaves as $leave){
                 $leave->leaver = User::find($leave->leaver_id);
