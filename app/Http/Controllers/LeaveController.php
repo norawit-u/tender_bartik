@@ -290,7 +290,7 @@ class LeaveController extends Controller
                 }
                 $leave->status = 'approved';
                 $leave->save();
-                $task->assignee = $leave->substitution;
+                $task->assignee = $leave->substitution_id;
                 $task->save();
                 return response()->json(['message'=> 'Successfully approve leave.']);
             }
@@ -308,7 +308,7 @@ class LeaveController extends Controller
      * @param $id
      * @return mixed
      */
-    public function deny($id)
+    public function deny(Request $request, $id)
     {
         try {
             $leave = Leave::findOrFail($id);
@@ -389,7 +389,7 @@ class LeaveController extends Controller
         $subordinates = $supervisor->subordinates;
         $free_sub = array();
         foreach ($subordinates as $sub){
-            if($this->checkFree($sub, $task)){
+            if($this->checkFree($sub, $task) && $sub->id != $request->user()->id){
                 array_push($free_sub, $sub);
             }
         }
